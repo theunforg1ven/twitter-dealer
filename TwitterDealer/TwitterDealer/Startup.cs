@@ -11,16 +11,19 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using TwitterDealer.Data;
+using TwitterDealer.Data.Entities;
 
 namespace TwitterDealer
 {
 	public class Startup
 	{
-		public Startup(IConfiguration configuration)
+		public Startup(IWebHostEnvironment webHostEnvironment)
 		{
-			Configuration = configuration;
+			Configuration = new ConfigurationBuilder()
+				.SetBasePath(webHostEnvironment.ContentRootPath)
+				.AddJsonFile("appsettings.json")
+				.Build();
 		}
 
 		public IConfiguration Configuration { get; }
@@ -32,8 +35,8 @@ namespace TwitterDealer
 			services.AddDbContext<AppDbContext>(options =>
 			options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-			//services.AddDefaultIdentity<ApplicationUser>()
-				//.AddEntityFrameworkStores<ApplicationDbContext>();
+			services.AddDefaultIdentity<ApplicationUser>()
+				.AddEntityFrameworkStores<AppDbContext>();
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -46,6 +49,7 @@ namespace TwitterDealer
 			app.UseHttpsRedirection();
 			app.UseRouting();
 			app.UseAuthorization();
+			app.UseAuthentication();
 
 			app.UseEndpoints(endpoints =>
 			{
