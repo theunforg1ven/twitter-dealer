@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -45,6 +46,14 @@ namespace TwitterDealer
 			services.AddDefaultIdentity<ApplicationUser>()
 				.AddEntityFrameworkStores<AppDbContext>();
 
+			services.Configure<IdentityOptions>(options => 
+			{
+				options.Password.RequireNonAlphanumeric = false;
+				options.Password.RequireLowercase = false;
+				options.Password.RequireUppercase = false;
+				options.Password.RequiredLength = 5;
+			});
+
 			services.AddCors();
 		}
 
@@ -55,9 +64,9 @@ namespace TwitterDealer
 				app.UseDeveloperExceptionPage();
 			}
 
-			app.UseCors(options => options.WithOrigins(Configuration["ApplicationSettings:ClientUrl"].ToString())
-											.AllowAnyMethod()
-											.AllowAnyHeader());
+			//app.UseCors(options => options.WithOrigins(Configuration["ApplicationSettings:ClientUrl"].ToString())
+			//								.AllowAnyMethod()
+			//								.AllowAnyHeader());
 
 			app.UseHttpsRedirection();
 			app.UseRouting();
