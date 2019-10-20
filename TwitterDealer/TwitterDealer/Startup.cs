@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Serialization;
 using TwitterDealer.Data;
 using TwitterDealer.Data.Entities;
 
@@ -30,13 +31,21 @@ namespace TwitterDealer
 
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddControllers();
+			services.AddControllers()
+				 .AddNewtonsoftJson(options =>
+				 {
+					 var resolver = options.SerializerSettings.ContractResolver;
+					 if (resolver != null)
+						 ((DefaultContractResolver)resolver).NamingStrategy = null; // use real values to serialize
+				 }); ;
 
 			services.AddDbContext<AppDbContext>(options =>
 			options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
 			services.AddDefaultIdentity<ApplicationUser>()
 				.AddEntityFrameworkStores<AppDbContext>();
+
+			services.AddCors();
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -45,6 +54,10 @@ namespace TwitterDealer
 			{
 				app.UseDeveloperExceptionPage();
 			}
+
+			app.UseCors(options => options.WithOrigins(Configuration["ApplicationSettings:ClientUrl"].ToString())
+											.AllowAnyMethod()
+											.AllowAnyHeader());
 
 			app.UseHttpsRedirection();
 			app.UseRouting();
