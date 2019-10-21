@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+  readonly rootUrl = 'http://localhost:44320/api';
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,
+              private http: HttpClient) { }
 
   formModel = this.fb.group({
     UserName: ['', Validators.required],
@@ -29,4 +32,16 @@ export class UserService {
       }
     }
   }
+
+  async register() {
+    const body = {
+      UserName: this.formModel.value.UserName,
+      TwitterUsername: this.formModel.value.TwitterUsername,
+      Email: this.formModel.value.Email,
+      Password: this.formModel.value.Passwords.Password
+    };
+
+    return await this.http.post(this.rootUrl + '/applicationUser/register', body).toPromise();
+  }
+
 }
