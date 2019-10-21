@@ -5,27 +5,56 @@
           Registration
        </mat-card-title>
            <mat-card-content>
-              <form class="my-form centerForm" >
+              <form [formGroup]="userService.formModel" class="my-form centerForm" autocomplete="off">
                 <mat-form-field class="full-width">
                   <mat-label>Username</mat-label>
-                  <input  matInput  placeholder="Username"  name="uname"  required>
+                  <input formControlName="UserName"   matInput  placeholder="Username"  name="uname"  required>
+                  <mat-label class="text-danger" 
+                     *ngIf="userService.formModel.get('UserName').touched && userService.formModel.get('UserName').errors?.required">
+                        This field is mandatory.
+                  </mat-label>
                </mat-form-field>
                <mat-form-field class="full-width">
                   <mat-label>Twitter Username</mat-label>
-                  <input  matInput  placeholder="Twitter Username" name="tname"  required>
+                  <input formControlName="TwitterUsername"  matInput  placeholder="Twitter Username" name="tname"  required>
+                  <mat-label class="text-danger" 
+                     *ngIf="userService.formModel.get('TwitterUsername').touched && userService.formModel.get('TwitterUsername').errors?.required">
+                        This field is mandatory.
+                  </mat-label>
                </mat-form-field>
                <mat-form-field class="full-width">
                   <mat-label>Email</mat-label>
-                  <input  matInput  placeholder="Email" name="email">
+                  <input formControlName="Email" matInput  placeholder="Email" name="email">
+                  <mat-label class="text-danger" *ngIf="userService.formModel.get('Email').touched && userService.formModel.get('Email').errors?.email">
+                     Invalid email address.
+                   </mat-label>
                </mat-form-field>
-               <mat-form-field class="full-width">
-                  <mat-label>Password</mat-label>
-                  <input  matInput  placeholder="Password"  name="password" required>
-               </mat-form-field>
+               <div formGroupName="Passwords">
+                  <mat-form-field class="full-width">
+                     <mat-label>Password</mat-label>
+                     <input type="password"  formControlName="Password"  matInput  placeholder="Password"  name="password" required>
+                     <mat-label class="text-danger" *ngIf="userService.formModel.get('Passwords.Password').touched && userService.formModel.get('Passwords.Password').errors?.required">
+                        This field is mandatory.
+                      </mat-label>
+                      <mat-label class="text-danger" *ngIf="userService.formModel.get('Passwords.Password').touched && userService.formModel.get('Passwords.Password').errors?.minlength">
+                        Minimum 5 characters required.
+                      </mat-label>
+                  </mat-form-field>
+                  <mat-form-field class="full-width">
+                     <mat-label>Confirm Password</mat-label>
+                     <input type="password" formControlName="ConfirmPassword"  matInput  placeholder="Confirm Password"  name="cpassword" required>
+                     <mat-label class="text-danger" *ngIf="userService.formModel.get('Passwords.ConfirmPassword').touched && userService.formModel.get('Passwords.ConfirmPassword').errors?.required">
+                        This field is mandatory.
+                      </mat-label>
+                      <mat-label class="text-danger" *ngIf="userService.formModel.get('Passwords.ConfirmPassword').touched && userService.formModel.get('Passwords.ConfirmPassword').errors?.passwordMismatch">
+                        Confirm Password does not match.
+                      </mat-label>
+                  </mat-form-field>
+               </div>
               </form>
            </mat-card-content>
            <mat-card-actions style="text-align:center;">
-            <button mat-raised-button (click)="register()" color="primary">R E G I S T E R</button>
+            <button type="submit" [disabled]="!userService.formModel.valid" mat-raised-button color="primary">R E G I S T E R</button>
            </mat-card-actions>
       </mat-card-content>
     </mat-card>
