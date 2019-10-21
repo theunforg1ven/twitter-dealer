@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class UserService {
-  readonly rootUrl = 'http://localhost:44320/api';
+  readonly rootUrl = 'https://localhost:44320/api';
 
   constructor(private fb: FormBuilder,
               private http: HttpClient) { }
@@ -22,7 +22,7 @@ export class UserService {
   });
 
   // condition of error: confirmPassword.errors = {passwordMissmatch:true}
-  comparePasswords(formBuilder: FormGroup){
+  comparePasswords(formBuilder: FormGroup) {
     const confirmPassword = formBuilder.get('ConfirmPassword');
     if (confirmPassword.errors == null || 'passwordMismatch' in confirmPassword.errors) {
       if (formBuilder.get('Password').value !== confirmPassword.value) {
@@ -33,15 +33,15 @@ export class UserService {
     }
   }
 
-  async register() {
+  register() {
+    //debugger;
     const body = {
       UserName: this.formModel.value.UserName,
       TwitterUsername: this.formModel.value.TwitterUsername,
       Email: this.formModel.value.Email,
       Password: this.formModel.value.Passwords.Password
     };
-
-    return await this.http.post(this.rootUrl + '/applicationUser/register', body).toPromise();
+    return this.http.post(this.rootUrl + '/applicationuser/register', body);
   }
 
 }

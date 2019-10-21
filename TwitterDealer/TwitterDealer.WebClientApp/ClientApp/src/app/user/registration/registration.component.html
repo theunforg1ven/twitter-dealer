@@ -51,11 +51,11 @@
                       </mat-label>
                   </mat-form-field>
                </div>
+               <mat-card-actions style="text-align:center;">
+                  <button type="submit" [disabled]="!userService.formModel.valid" mat-raised-button color="primary">R E G I S T E R</button>
+              </mat-card-actions>
               </form>
            </mat-card-content>
-           <mat-card-actions style="text-align:center;">
-            <button type="submit" [disabled]="!userService.formModel.valid" mat-raised-button color="primary">R E G I S T E R</button>
-           </mat-card-actions>
       </mat-card-content>
     </mat-card>
 </div>

@@ -32,8 +32,8 @@ namespace TwitterDealer.Controllers
 			var applicationUser = new ApplicationUser()
 			{
 				UserName = userModel.UserName,
-				Email = userModel.Email,
-				TwitterUsername = userModel.TwitterUsername
+				TwitterUsername = userModel.TwitterUsername,
+				Email = userModel.Email
 			};
 
 			var result = await _userManager.CreateAsync(applicationUser, userModel.Password);

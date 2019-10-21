@@ -32,13 +32,13 @@ namespace TwitterDealer
 
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddControllers()
-				 .AddNewtonsoftJson(options =>
-				 {
-					 var resolver = options.SerializerSettings.ContractResolver;
-					 if (resolver != null)
-						 ((DefaultContractResolver)resolver).NamingStrategy = null; // use real values to serialize
-				 }); ;
+			services.AddControllers();
+				 //.AddNewtonsoftJson(options =>
+				 //{
+					// var resolver = options.SerializerSettings.ContractResolver;
+					// if (resolver != null)
+					//	 ((DefaultContractResolver)resolver).NamingStrategy = null; // use real values to serialize
+				 //});
 
 			services.AddDbContext<AppDbContext>(options =>
 			options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -64,9 +64,9 @@ namespace TwitterDealer
 				app.UseDeveloperExceptionPage();
 			}
 
-			//app.UseCors(options => options.WithOrigins(Configuration["ApplicationSettings:ClientUrl"].ToString())
-			//								.AllowAnyMethod()
-			//								.AllowAnyHeader());
+			app.UseCors(options => options.WithOrigins("http://localhost:4200")
+											.AllowAnyMethod()
+											.AllowAnyHeader());
 
 			app.UseHttpsRedirection();
 			app.UseRouting();
