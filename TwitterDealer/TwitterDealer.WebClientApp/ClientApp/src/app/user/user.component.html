@@ -1,5 +1,15 @@
 <div class="container">
   <div class="col-md-8 offset-md-2">
+      <div class="main-div mt-5">
+          <mat-card>
+              <mat-card-content>
+                  <mat-card-actions>
+                      <button class="sign-button" mat-button routerLink='/user/login'>Sign In</button>
+                      <button class="sign-button" mat-button  routerLink='/user/registration'>Register</button>
+                  </mat-card-actions>
+              </mat-card-content>
+          </mat-card>
+      </div>
     <router-outlet></router-outlet>
   </div>
 </div>

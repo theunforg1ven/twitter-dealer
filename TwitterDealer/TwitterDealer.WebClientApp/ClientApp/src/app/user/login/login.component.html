@@ -1,0 +1,24 @@
+<div class="main-div"> 
+    <mat-card >
+       <mat-card-content>
+        <mat-card-title style="text-align: center;">
+           Login
+        </mat-card-title>
+            <mat-card-content>
+               <form #form='ngForm' class="my-form centerForm" autocomplete="off" (submit)="onSubmit()">
+                 <mat-form-field class="full-width">
+                   <mat-label>Username</mat-label>
+                   <input matInput  placeholder="Username" #UserName="ngModel" name="UserName" [(ngMode)l]="formModel.UserName" required>
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <mat-label>Password</mat-label>
+                    <input type="password" matInput  placeholder="Password" #Password="ngModel" name="Password" [(ngMode)l]="formModel.Password"   required>
+                </mat-form-field>
+                <mat-card-actions style="text-align:center;">
+                   <button type="submit" [disabled]="!userService.formModel.valid" mat-raised-button color="primary">L O G I N</button>
+               </mat-card-actions>
+               </form>
+            </mat-card-content>
+       </mat-card-content>
+     </mat-card>
+ </div>
