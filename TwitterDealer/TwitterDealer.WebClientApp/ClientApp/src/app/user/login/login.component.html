@@ -22,7 +22,7 @@ margin-bottom: 10px; ">
                        <input type="password" matInput  placeholder="Password" #Password="ngModel" name="Password" [(ngModel)]="formModel.Password"   required>
                    </mat-form-field>
                    <mat-card-actions style="text-align:center;">
-                      <button type="submit" mat-raised-button color="primary">L O G I N</button>
+                      <button type="submit" mat-raised-button color="primary" [disabled]="form.invalid">L O G I N</button>
                   </mat-card-actions>
                   </form>
             </mat-card-content>
