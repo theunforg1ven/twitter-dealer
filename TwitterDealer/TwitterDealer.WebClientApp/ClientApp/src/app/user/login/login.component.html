@@ -11,7 +11,7 @@ margin-bottom: 10px; ">
            Login
         </mat-card-title >
             <mat-card-content >
-                <form #form="ngForm"  class="my-form" autocomplete="off">
+                <form #form="ngForm"  class="my-form" autocomplete="off" (submit)="onSubmit(form)">
                     <mat-form-field class="full-width " style="width: 100%;">
                       <mat-label>Username</mat-label>
                       <input matInput  placeholder="Username" #UserName="ngModel" name="UserName" [(ngModel)]="formModel.UserName" required>

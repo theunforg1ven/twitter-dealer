@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -17,6 +18,7 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
 using TwitterDealer.Data;
 using TwitterDealer.Data.Entities;
+using TwitterDealer.Models;
 
 namespace TwitterDealer
 {
@@ -34,6 +36,9 @@ namespace TwitterDealer
 
 		public void ConfigureServices(IServiceCollection services)
 		{
+			// inject app settings
+			services.Configure<ApplicationSettings>(Configuration.GetSection("ApplicationSettings"));
+
 			services.AddControllers();
 				 //.AddNewtonsoftJson(options =>
 				 //{
@@ -58,7 +63,7 @@ namespace TwitterDealer
 
 			services.AddCors();
 
-			// jwt web tokrn auth
+			// jwt web token auth
 
 			var key = Encoding.UTF8.GetBytes(Configuration["ApplicationSettings:JwtSecret"].ToString());
 
@@ -90,14 +95,15 @@ namespace TwitterDealer
 				app.UseDeveloperExceptionPage();
 			}
 
-			app.UseCors(options => options.WithOrigins("http://localhost:4200")
+			app.UseCors(options => options.WithOrigins(Configuration["ApplicationSettings:ClientUrl"].ToString())
 											.AllowAnyMethod()
 											.AllowAnyHeader());
 
+			app.UseAuthentication();
 			app.UseHttpsRedirection();
 			app.UseRouting();
 			app.UseAuthorization();
-			app.UseAuthentication();
+		
 
 			app.UseEndpoints(endpoints =>
 			{

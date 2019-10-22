@@ -44,4 +44,12 @@ export class UserService {
     return this.http.post(this.rootUrl + '/applicationuser/register', body);
   }
 
+  login(formData) {
+    return this.http.post(this.rootUrl + '/applicationuser/login', formData);
+  }
+
+  getUserProfile() {
+    return this.http.get(this.rootUrl + '/userprofile');
+  }
+
 }
