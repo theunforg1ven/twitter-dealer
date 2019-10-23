@@ -8,21 +8,10 @@ import { UserService } from '../shared/user.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  userDetails;
-
   constructor(private router: Router,
               private userService: UserService) { }
 
-  ngOnInit() {
-    this.userService.getUserProfile().subscribe(
-      res => {
-        this.userDetails = res;
-      },
-      err => {
-        console.log(err);
-      },
-    );
-  }
+  ngOnInit() {}
 
   onLogout() {
     localStorage.removeItem('token');

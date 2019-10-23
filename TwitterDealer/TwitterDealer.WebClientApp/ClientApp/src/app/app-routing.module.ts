@@ -5,6 +5,7 @@ import { RegistrationComponent } from './user/registration/registration.componen
 import { LoginComponent } from './user/login/login.component';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './auth/auth.guard';
+import { UserprofileComponent } from './home/userprofile/userprofile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/user/registration', pathMatch: 'full' },
@@ -14,7 +15,11 @@ const routes: Routes = [
     { path: 'login', component: LoginComponent }
     ]
   },
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard],
+  children: [
+    { path: 'userprofile', component: UserprofileComponent },
+    ] 
+  },
 ];
 
 @NgModule({

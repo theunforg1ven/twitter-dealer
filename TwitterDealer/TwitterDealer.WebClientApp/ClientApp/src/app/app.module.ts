@@ -56,6 +56,7 @@ import { UserService } from './shared/user.service';
 import { LoginComponent } from './user/login/login.component';
 import { HomeComponent } from './home/home.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
+import { UserprofileComponent } from './home/userprofile/userprofile.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     UserComponent,
     RegistrationComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    UserprofileComponent
   ],
   imports: [
     BrowserModule,
