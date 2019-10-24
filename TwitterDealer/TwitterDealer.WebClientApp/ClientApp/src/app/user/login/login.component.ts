@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     if (localStorage.getItem('token') != null) {
-    this.router.navigateByUrl('/home');
+    this.router.navigateByUrl('/home/userprofile');
     }
   }
 
@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
     this.userService.login(form.value).subscribe(
       (res: any) => {
         localStorage.setItem('token', res.token);
-        this.router.navigateByUrl('/home');
+        this.router.navigateByUrl('/home/userprofile');
       },
       err => {
         if (err.status == 400) {
