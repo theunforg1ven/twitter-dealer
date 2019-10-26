@@ -18,7 +18,10 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
 using TwitterDealer.Data;
 using TwitterDealer.Data.Entities;
+using TwitterDealer.Interfaces;
 using TwitterDealer.Models;
+using TwitterDealer.Services;
+using TwitterDealer.TwitterApi;
 
 namespace TwitterDealer
 {
@@ -36,6 +39,8 @@ namespace TwitterDealer
 
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.AddTransient<IUserService, UserService>();
+
 			// inject app settings
 			services.Configure<ApplicationSettings>(Configuration.GetSection("ApplicationSettings"));
 
@@ -109,6 +114,8 @@ namespace TwitterDealer
 			{
 				endpoints.MapControllers();
 			});
+
+			AuthInit.AuthenticateTwitter();
 		}
 	}
 }

@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29411.108
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwitterDealer", "TwitterDealer\TwitterDealer.csproj", "{9FFBEC8D-40D4-42D4-97F3-3B8E455C9D0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwitterDealer", "TwitterDealer\TwitterDealer.csproj", "{9FFBEC8D-40D4-42D4-97F3-3B8E455C9D0C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwitterDealer.Data", "TwitterDealer.Data\TwitterDealer.Data.csproj", "{81027B47-E090-485C-9F05-F7CF359A4225}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwitterDealer.Data", "TwitterDealer.Data\TwitterDealer.Data.csproj", "{81027B47-E090-485C-9F05-F7CF359A4225}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwitterDealer.TwitterApi", "TwitterDealer.TwitterApi\TwitterDealer.TwitterApi.csproj", "{6A241B9E-0A36-49F4-81AA-834B5556F9D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{81027B47-E090-485C-9F05-F7CF359A4225}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81027B47-E090-485C-9F05-F7CF359A4225}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81027B47-E090-485C-9F05-F7CF359A4225}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A241B9E-0A36-49F4-81AA-834B5556F9D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A241B9E-0A36-49F4-81AA-834B5556F9D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A241B9E-0A36-49F4-81AA-834B5556F9D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A241B9E-0A36-49F4-81AA-834B5556F9D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
