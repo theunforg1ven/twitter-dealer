@@ -20,8 +20,10 @@ namespace TwitterDealer.Services
 		{
 			var user = _twitterService.GetUserProfileFor(new GetUserProfileForOptions
 			{ 
-				ScreenName = "handle"
+				ScreenName = "batyagaming"
 			});
+
+			
 
 			return user;
 		}
@@ -30,8 +32,8 @@ namespace TwitterDealer.Services
 		{
 			var currentTweets = _twitterService.ListTweetsOnUserTimeline(new ListTweetsOnUserTimelineOptions
 			{
-				ScreenName = "handle",
-				Count = 200,
+				ScreenName = "batyagaming",
+				Count = 5,
 				IncludeRts = false,
 				ExcludeReplies = true
 			});
