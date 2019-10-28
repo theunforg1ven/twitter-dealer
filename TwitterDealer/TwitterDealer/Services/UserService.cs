@@ -23,8 +23,6 @@ namespace TwitterDealer.Services
 				ScreenName = "batyagaming"
 			});
 
-			
-
 			return user;
 		}
 
@@ -33,12 +31,28 @@ namespace TwitterDealer.Services
 			var currentTweets = _twitterService.ListTweetsOnUserTimeline(new ListTweetsOnUserTimelineOptions
 			{
 				ScreenName = "batyagaming",
-				Count = 5,
+				Count = 10,
 				IncludeRts = false,
 				ExcludeReplies = true
 			});
 
 			return currentTweets;
+		}
+
+		public IEnumerable<TwitterMedia> GetUserMedia()
+		{
+			var media = _twitterService.ListTweetsOnUserTimeline(new ListTweetsOnUserTimelineOptions
+			{
+				ScreenName = "batyagaming",
+				Count = 100,
+				IncludeRts = false,
+				ExcludeReplies = true
+			}).Where(tw => tw.Entities.Media != null)
+			  .Select(tw => tw.Entities.Media)
+			  .SelectMany(m => m);
+
+
+			return media;
 		}
 	}
 }

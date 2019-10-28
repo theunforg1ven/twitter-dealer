@@ -35,5 +35,14 @@ namespace TwitterDealer.Controllers
 
 			return infoResult;
 		}
+
+		[HttpGet]
+		[Route("TwitterUserMedia")]
+		public IEnumerable<TwitterMedia> GetUserMedia()
+		{
+			var media = _userService.GetUserMedia();
+
+			return media;
+		}
 	}
 }
