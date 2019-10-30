@@ -23,6 +23,8 @@ namespace TwitterDealer.Services
 				ScreenName = screenName
 			});
 
+			
+
 			return user;
 		}
 
