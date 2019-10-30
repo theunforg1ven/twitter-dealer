@@ -6,10 +6,10 @@ namespace TwitterDealer.Interfaces
 {
 	public interface IUserService
 	{
-		TwitterUser GetUserInfo();
+		TwitterUser GetUserInfo(string screenName);
 
-		IEnumerable<TwitterStatus> GetUserTweets();
+		IEnumerable<TwitterStatus> GetUserTweets(string screenName);
 
-		IEnumerable<TwitterMedia> GetUserMedia();
+		IEnumerable<TwitterMedia> GetUserMedia(string screenName, int mediaCount);
 	}
 }

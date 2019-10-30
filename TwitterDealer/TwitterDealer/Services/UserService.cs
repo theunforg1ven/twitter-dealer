@@ -16,21 +16,21 @@ namespace TwitterDealer.Services
 			_twitterService = AuthInit.TwitterService;
 		}
 
-		public TwitterUser GetUserInfo()
+		public TwitterUser GetUserInfo(string screenName)
 		{
 			var user = _twitterService.GetUserProfileFor(new GetUserProfileForOptions
 			{ 
-				ScreenName = "batyagaming"
+				ScreenName = screenName
 			});
 
 			return user;
 		}
 
-		public IEnumerable<TwitterStatus> GetUserTweets()
+		public IEnumerable<TwitterStatus> GetUserTweets(string screenName)
 		{
 			var currentTweets = _twitterService.ListTweetsOnUserTimeline(new ListTweetsOnUserTimelineOptions
 			{
-				ScreenName = "batyagaming",
+				ScreenName = screenName,
 				Count = 10,
 				IncludeRts = false,
 				ExcludeReplies = true
@@ -39,12 +39,12 @@ namespace TwitterDealer.Services
 			return currentTweets;
 		}
 
-		public IEnumerable<TwitterMedia> GetUserMedia()
+		public IEnumerable<TwitterMedia> GetUserMedia(string screenName, int mediaCount)
 		{
 			var media = _twitterService.ListTweetsOnUserTimeline(new ListTweetsOnUserTimelineOptions
 			{
-				ScreenName = "batyagaming",
-				Count = 100,
+				ScreenName = screenName,
+				Count = mediaCount,
 				IncludeRts = false,
 				ExcludeReplies = true
 			}).Where(tw => tw.Entities.Media != null)

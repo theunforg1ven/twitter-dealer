@@ -20,27 +20,27 @@ namespace TwitterDealer.Controllers
 
 		[HttpGet]
 		[Route("TwitterUserProfile")]
-		public TwitterUser GetUserInfoAsync()
+		public TwitterUser GetUserInfoAsync(string screenName)
 		{
-			var infoResult =  _userService.GetUserInfo();
+			var infoResult =  _userService.GetUserInfo(screenName);
 
 			return infoResult;
 		}
 
 		[HttpGet]
 		[Route("TwitterUserTweets")]
-		public IEnumerable<TwitterStatus> GetUserTweetsAsync()
+		public IEnumerable<TwitterStatus> GetUserTweetsAsync(string screenName)
 		{
-			var infoResult = _userService.GetUserTweets();
+			var infoResult = _userService.GetUserTweets(screenName);
 
 			return infoResult;
 		}
 
 		[HttpGet]
 		[Route("TwitterUserMedia")]
-		public IEnumerable<TwitterMedia> GetUserMedia()
+		public IEnumerable<TwitterMedia> GetUserMedia(string screenName, int mediaCount)
 		{
-			var media = _userService.GetUserMedia();
+			var media = _userService.GetUserMedia(screenName, mediaCount);
 
 			return media;
 		}
