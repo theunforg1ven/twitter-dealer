@@ -40,7 +40,8 @@ namespace TwitterDealer
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddTransient<IUserService, UserService>();
-
+			services.AddTransient<ITweetDataService, TweetDataService>();
+			
 			// inject app settings
 			services.Configure<ApplicationSettings>(Configuration.GetSection("ApplicationSettings"));
 
