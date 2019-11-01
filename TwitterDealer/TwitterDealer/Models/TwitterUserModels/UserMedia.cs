@@ -20,7 +20,7 @@ namespace TwitterDealer.Models.TwitterUserModels
 		/// 2 - gif
 		/// if TwitterMediaType.Photo = 0, so we have: 0 - image
 		/// </summary>
-		public TweetMediaType MediaType { get; set; }
+		public TweetMediaType? MediaType { get; set; }
 
 		/// <summary>
 		/// All content like text, language etc.

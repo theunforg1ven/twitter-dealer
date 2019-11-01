@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace TwitterDealer.Models.TwitterUserModels
 {
@@ -11,6 +12,10 @@ namespace TwitterDealer.Models.TwitterUserModels
 		public string TweetText { get; set; }
 
 		public string Language { get; set; }
+
+		public IEnumerable<UserMedia> MediaUrl { get; set; }
+
+		public bool? IsPossiblySensitive { get; set; }
 
 		public DateTime? Created { get; set; }
 	}

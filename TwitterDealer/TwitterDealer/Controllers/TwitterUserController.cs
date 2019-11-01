@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TweetSharp;
 using TwitterDealer.Interfaces;
+using TwitterDealer.Models.TwitterUserModels;
 
 namespace TwitterDealer.Controllers
 {
@@ -20,7 +21,7 @@ namespace TwitterDealer.Controllers
 
 		[HttpGet]
 		[Route("TwitterUserProfile")]
-		public TwitterUser GetUserInfoAsync(string screenName)
+		public MainUserModel GetUserInfoAsync(string screenName)
 		{
 			var infoResult =  _userService.GetUserInfo(screenName);
 
@@ -29,7 +30,7 @@ namespace TwitterDealer.Controllers
 
 		[HttpGet]
 		[Route("TwitterUserTweets")]
-		public IEnumerable<TwitterStatus> GetUserTweetsAsync(string screenName)
+		public IEnumerable<StatusTweet> GetUserTweetsAsync(string screenName)
 		{
 			var infoResult = _userService.GetUserTweets(screenName);
 

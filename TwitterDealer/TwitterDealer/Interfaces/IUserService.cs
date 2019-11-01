@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using TweetSharp;
+using TwitterDealer.Models.TwitterUserModels;
 
 namespace TwitterDealer.Interfaces
 {
 	public interface IUserService
 	{
-		TwitterUser GetUserInfo(string screenName);
+		MainUserModel GetUserInfo(string screenName);
 
-		IEnumerable<TwitterStatus> GetUserTweets(string screenName);
+		IEnumerable<StatusTweet> GetUserTweets(string screenName);
 
 		IEnumerable<TwitterMedia> GetUserMedia(string screenName, int mediaCount);
 	}

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using TweetSharp;
 using TwitterDealer.Interfaces;
+using TwitterDealer.Models.Enums;
+using TwitterDealer.Models.TwitterUserModels;
 using TwitterDealer.TwitterApi;
 
 namespace TwitterDealer.Services
@@ -16,19 +18,42 @@ namespace TwitterDealer.Services
 			_twitterService = AuthInit.TwitterService;
 		}
 
-		public TwitterUser GetUserInfo(string screenName)
+		public MainUserModel GetUserInfo(string screenName)
 		{
 			var user = _twitterService.GetUserProfileFor(new GetUserProfileForOptions
 			{ 
 				ScreenName = screenName
 			});
 
-			
+			var userModel = new MainUserModel
+			{
+				UserTwId = user.Id,
+				FollowersCount = user.FollowersCount,
+				UserTwName = user.Name,
+				ImageUrl = user.ProfileImageUrl,
+				Url = user.Url,
+				IsProtected = user.IsProtected,
+				ScreenName = user.ScreenName,
+				Location = user.Location,
+				FriendsCount = user.FriendsCount,
+				ProfileBackgroundColor = user.ProfileBackgroundColor,
+				ProfileTextColor = user.ProfileTextColor,
+				ProfileLinkColor = user.ProfileLinkColor,
+				ProfileBackgroundImageUrl = user.ProfileBackgroundImageUrl,
+				FavouritesCount = user.FavouritesCount,
+				ListedCount = user.ListedCount,
+				StatusesCount = user.StatusesCount,
+				IsProfileBackgroundTiled = user.IsProfileBackgroundTiled,
+				IsVerified = user.IsVerified,
+				IsGeoEnabled = user.IsGeoEnabled,
+				Language = user.Language,
+				CreatedDate = user.CreatedDate
+			};
 
-			return user;
+			return userModel;
 		}
 
-		public IEnumerable<TwitterStatus> GetUserTweets(string screenName)
+		public IEnumerable<StatusTweet> GetUserTweets(string screenName)
 		{
 			var currentTweets = _twitterService.ListTweetsOnUserTimeline(new ListTweetsOnUserTimelineOptions
 			{
@@ -38,7 +63,19 @@ namespace TwitterDealer.Services
 				ExcludeReplies = true
 			});
 
-			return currentTweets;
+			var statusTweets = currentTweets
+				.Select(tw => new StatusTweet
+				{
+					IsFavourite = tw.IsFavorited,
+					RetweetCount = tw.RetweetCount,
+					TweetText = tw.Text,
+					Language = tw.Language,
+					IsPossiblySensitive = tw.IsPossiblySensitive,
+					Created = tw.CreatedDate,
+					MediaUrl = SelectMedia(tw)
+				}); 
+
+			return statusTweets;
 		}
 
 		public IEnumerable<TwitterMedia> GetUserMedia(string screenName, int mediaCount)
@@ -56,5 +93,24 @@ namespace TwitterDealer.Services
 
 			return media;
 		}
+
+		public IEnumerable<UserMedia> SelectMedia(TwitterStatus twStatus)
+		{
+			var media = twStatus.Entities.Media.Select(m => new UserMedia
+			{
+				MediaUrl = m.MediaUrl,
+				TweetUrl = m.Url,
+				MediaType = SelectMediaType(m)
+			});
+
+			return media;
+		}
+
+		public TweetMediaType SelectMediaType(TwitterMedia twMedia) => twMedia.MediaType switch
+		{
+			// TODO: fix media types to get gifs and fix getting videos
+			0 => TweetMediaType.TweetImage,
+			_ => TweetMediaType.TweetVideo,
+		};
 	}
 }
