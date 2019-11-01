@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using TweetSharp;
 using TwitterDealer.Models.TwitterUserModels;
 
@@ -10,6 +11,6 @@ namespace TwitterDealer.Interfaces
 
 		IEnumerable<StatusTweet> GetUserTweets(string screenName);
 
-		IEnumerable<TwitterMedia> GetUserMedia(string screenName, int mediaCount);
+		Task<IEnumerable<UserMedia>> GetUserMediaAsync(string screenName, int mediaCount);
 	}
 }

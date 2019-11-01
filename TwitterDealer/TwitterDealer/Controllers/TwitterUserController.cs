@@ -39,9 +39,9 @@ namespace TwitterDealer.Controllers
 
 		[HttpGet]
 		[Route("TwitterUserMedia")]
-		public IEnumerable<TwitterMedia> GetUserMedia(string screenName, int mediaCount)
+		public async Task<IEnumerable<UserMedia>> GetUserMediaAsync(string screenName, int mediaCount)
 		{
-			var media = _userService.GetUserMedia(screenName, mediaCount);
+			var media = await _userService.GetUserMediaAsync(screenName, mediaCount);
 
 			return media;
 		}

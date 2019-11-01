@@ -59,7 +59,7 @@ namespace TwitterDealer.Services
 			var currentTweets = _twitterService.ListTweetsOnUserTimeline(new ListTweetsOnUserTimelineOptions
 			{
 				ScreenName = screenName,
-				Count = 10,
+				Count = 100,
 				IncludeRts = false,
 				ExcludeReplies = true
 			});
@@ -74,28 +74,46 @@ namespace TwitterDealer.Services
 					Language = tw.Language,
 					IsPossiblySensitive = tw.IsPossiblySensitive,
 					Created = tw.CreatedDate,
-					MediaUrl = SelectMedia(tw)
+					MediaUrl = SelectMediaBase(tw)
 				}); 
 
 			return statusTweets;
 		}
 
-		public IEnumerable<TwitterMedia> GetUserMedia(string screenName, int mediaCount)
+		public async Task<IEnumerable<UserMedia>> GetUserMediaAsync(string screenName, int mediaCount)
 		{
-			var media = _twitterService.ListTweetsOnUserTimeline(new ListTweetsOnUserTimelineOptions
+			var media = await _twitterService.ListTweetsOnUserTimelineAsync(new ListTweetsOnUserTimelineOptions
 			{
 				ScreenName = screenName,
-				Count = mediaCount,
+				Count = 100,
 				IncludeRts = false,
-				ExcludeReplies = true
-			}).Where(tw => tw.Entities.Media != null)
-			  .Select(tw => tw.Entities.Media)
-			  .SelectMany(m => m);
+				ExcludeReplies = false
+			});
+
+			var querymedia = media.Value
+							.Where(tw => tw.Entities.Media != null)
+							.Select(tw => tw.Entities.Media)
+							.SelectMany(m => m);
+
+			var twMedia = SelectMedia(querymedia);
+
+			return twMedia;
+		}
+
+		public IEnumerable<UserMedia> SelectMedia(IEnumerable<TwitterMedia> twMedia)
+		{
+			var media = twMedia.Select(m => new UserMedia
+			{
+				MediaUrl = m.MediaUrl,
+				MediaType = SelectMediaType(m),
+				TweetUrl = m.Url,
+				TweetContent = null
+			});
 
 			return media;
 		}
 
-		public IEnumerable<BaseUserMedia> SelectMedia(TwitterStatus twStatus)
+		public IEnumerable<BaseUserMedia> SelectMediaBase(TwitterStatus twStatus)
 		{
 			var media = twStatus.Entities.Media.Select(m => new BaseUserMedia
 			{
@@ -108,9 +126,10 @@ namespace TwitterDealer.Services
 
 		public TweetMediaType SelectMediaType(TwitterMedia twMedia) => twMedia.MediaType switch
 		{
-			// TODO: fix media types to get gifs and fix getting videos
-			0 => TweetMediaType.TweetImage,
-			_ => TweetMediaType.TweetVideo,
+			TwitterMediaType.Photo => TweetMediaType.TweetImage,
+			TwitterMediaType.Video => TweetMediaType.TweetVideo,
+			TwitterMediaType.AnimatedGif => TweetMediaType.TweetGif,
+			_ => TweetMediaType.TweetImage,
 		};
 	}
 }

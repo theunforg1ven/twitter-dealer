@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.6.0" />
-    <PackageReference Include="TweetSharp" Version="2.3.1" />
+    <PackageReference Include="TweetMoaSharp" Version="6.0.0" />
   </ItemGroup>
 
 </Project>
