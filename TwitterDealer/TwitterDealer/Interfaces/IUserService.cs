@@ -7,9 +7,9 @@ namespace TwitterDealer.Interfaces
 {
 	public interface IUserService
 	{
-		MainUserModel GetUserInfo(string screenName);
+		Task<MainUserModel> GetUserInfoAsync(string screenName);
 
-		IEnumerable<StatusTweet> GetUserTweets(string screenName);
+		Task<IEnumerable<StatusTweet>> GetUserTweetsAsync(string screenName);
 
 		Task<IEnumerable<UserMedia>> GetUserMediaAsync(string screenName, int mediaCount);
 	}

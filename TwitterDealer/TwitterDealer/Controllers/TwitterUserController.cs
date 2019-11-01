@@ -21,18 +21,18 @@ namespace TwitterDealer.Controllers
 
 		[HttpGet]
 		[Route("TwitterUserProfile")]
-		public MainUserModel GetUserInfoAsync(string screenName)
+		public Task<MainUserModel> GetUserInfoAsync(string screenName)
 		{
-			var infoResult =  _userService.GetUserInfo(screenName);
+			var infoResult =  _userService.GetUserInfoAsync(screenName);
 
 			return infoResult;
 		}
 
 		[HttpGet]
 		[Route("TwitterUserTweets")]
-		public IEnumerable<StatusTweet> GetUserTweetsAsync(string screenName)
+		public Task<IEnumerable<StatusTweet>> GetUserTweetsAsync(string screenName)
 		{
-			var infoResult = _userService.GetUserTweets(screenName);
+			var infoResult = _userService.GetUserTweetsAsync(screenName);
 
 			return infoResult;
 		}

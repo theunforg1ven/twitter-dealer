@@ -19,44 +19,44 @@ namespace TwitterDealer.Services
 			_twitterService = AuthInit.TwitterService;
 		}
 
-		public MainUserModel GetUserInfo(string screenName)
+		public async Task<MainUserModel> GetUserInfoAsync(string screenName)
 		{
-			var user = _twitterService.GetUserProfileFor(new GetUserProfileForOptions
+			var user = await _twitterService.GetUserProfileForAsync(new GetUserProfileForOptions
 			{ 
 				ScreenName = screenName
 			});
 
 			var userModel = new MainUserModel
 			{
-				UserTwId = user.Id,
-				FollowersCount = user.FollowersCount,
-				UserTwName = user.Name,
-				ImageUrl = user.ProfileImageUrl,
-				Url = user.Url,
-				IsProtected = user.IsProtected,
-				ScreenName = user.ScreenName,
-				Location = user.Location,
-				FriendsCount = user.FriendsCount,
-				ProfileBackgroundColor = user.ProfileBackgroundColor,
-				ProfileTextColor = user.ProfileTextColor,
-				ProfileLinkColor = user.ProfileLinkColor,
-				ProfileBackgroundImageUrl = user.ProfileBackgroundImageUrl,
-				FavouritesCount = user.FavouritesCount,
-				ListedCount = user.ListedCount,
-				StatusesCount = user.StatusesCount,
-				IsProfileBackgroundTiled = user.IsProfileBackgroundTiled,
-				IsVerified = user.IsVerified,
-				IsGeoEnabled = user.IsGeoEnabled,
-				Language = user.Language,
-				CreatedDate = user.CreatedDate
+				UserTwId = user.Value.Id,
+				FollowersCount = user.Value.FollowersCount,
+				UserTwName = user.Value.Name,
+				ImageUrl = user.Value.ProfileImageUrl,
+				Url = user.Value.Url,
+				IsProtected = user.Value.IsProtected,
+				ScreenName = user.Value.ScreenName,
+				Location = user.Value.Location,
+				FriendsCount = user.Value.FriendsCount,
+				ProfileBackgroundColor = user.Value.ProfileBackgroundColor,
+				ProfileTextColor = user.Value.ProfileTextColor,
+				ProfileLinkColor = user.Value.ProfileLinkColor,
+				ProfileBackgroundImageUrl = user.Value.ProfileBackgroundImageUrl,
+				FavouritesCount = user.Value.FavouritesCount,
+				ListedCount = user.Value.ListedCount,
+				StatusesCount = user.Value.StatusesCount,
+				IsProfileBackgroundTiled = user.Value.IsProfileBackgroundTiled,
+				IsVerified = user.Value.IsVerified,
+				IsGeoEnabled = user.Value.IsGeoEnabled,
+				Language = user.Value.Language,
+				CreatedDate = user.Value.CreatedDate
 			};
 
 			return userModel;
 		}
 
-		public IEnumerable<StatusTweet> GetUserTweets(string screenName)
+		public async Task<IEnumerable<StatusTweet>> GetUserTweetsAsync(string screenName)
 		{
-			var currentTweets = _twitterService.ListTweetsOnUserTimeline(new ListTweetsOnUserTimelineOptions
+			var currentTweets = await _twitterService.ListTweetsOnUserTimelineAsync(new ListTweetsOnUserTimelineOptions
 			{
 				ScreenName = screenName,
 				Count = 100,
@@ -64,7 +64,7 @@ namespace TwitterDealer.Services
 				ExcludeReplies = true
 			});
 
-			var statusTweets = currentTweets
+			var statusTweets = currentTweets.Value
 				.Select(tw => new StatusTweet
 				{
 					IsFavourite = tw.IsFavorited,
@@ -129,7 +129,7 @@ namespace TwitterDealer.Services
 			TwitterMediaType.Photo => TweetMediaType.TweetImage,
 			TwitterMediaType.Video => TweetMediaType.TweetVideo,
 			TwitterMediaType.AnimatedGif => TweetMediaType.TweetGif,
-			_ => TweetMediaType.TweetImage,
+			_ => TweetMediaType.None,
 		};
 	}
 }
