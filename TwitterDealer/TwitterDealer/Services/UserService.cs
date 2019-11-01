@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TweetSharp;
 using TwitterDealer.Interfaces;
+using TwitterDealer.Models.BaseModels;
 using TwitterDealer.Models.Enums;
 using TwitterDealer.Models.TwitterUserModels;
 using TwitterDealer.TwitterApi;
@@ -69,6 +70,7 @@ namespace TwitterDealer.Services
 					IsFavourite = tw.IsFavorited,
 					RetweetCount = tw.RetweetCount,
 					TweetText = tw.Text,
+					Url = $"https://twitter.com/{screenName}/status/{tw.IdStr}",
 					Language = tw.Language,
 					IsPossiblySensitive = tw.IsPossiblySensitive,
 					Created = tw.CreatedDate,
@@ -90,16 +92,14 @@ namespace TwitterDealer.Services
 			  .Select(tw => tw.Entities.Media)
 			  .SelectMany(m => m);
 
-
 			return media;
 		}
 
-		public IEnumerable<UserMedia> SelectMedia(TwitterStatus twStatus)
+		public IEnumerable<BaseUserMedia> SelectMedia(TwitterStatus twStatus)
 		{
-			var media = twStatus.Entities.Media.Select(m => new UserMedia
+			var media = twStatus.Entities.Media.Select(m => new BaseUserMedia
 			{
 				MediaUrl = m.MediaUrl,
-				TweetUrl = m.Url,
 				MediaType = SelectMediaType(m)
 			});
 
