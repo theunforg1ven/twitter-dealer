@@ -29,13 +29,26 @@ namespace TwitterDealer.Services
 
 			var result = tweet.Value;
 
+			// find last post
+
+			var lastUserTweets = await _twitterService.ListTweetsOnUserTimelineAsync(new ListTweetsOnUserTimelineOptions
+			{
+				ScreenName = "HoneyMadTV",
+				Count = 100,
+				IncludeRts = false,
+				ExcludeReplies = true
+			});
+
 			var currentTweets = await _twitterService.SearchAsync(new SearchOptions
 			{
 				Q = $"@HoneyMadTV",
 				Count = 100,
+				Resulttype = TwitterSearchResultType.Mixed,
 				SinceId = Convert.ToInt64(tweetId),
-				IncludeEntities = true,
+				IncludeEntities = true
 			});
+
+			var test = currentTweets.Value.Statuses.Count();
 
 			var search = currentTweets.Value.Statuses
 				.Where(tw => tw.InReplyToStatusId == Convert.ToInt64(tweetId))
