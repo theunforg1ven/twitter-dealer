@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TweetSharp;
 using TwitterDealer.Interfaces;
+using TwitterDealer.Models.TwitterUserModels;
 
 namespace TwitterDealer.Controllers
 {
@@ -21,7 +22,7 @@ namespace TwitterDealer.Controllers
 
 		[HttpGet]
 		[Route("TwitterData")]
-		public async Task<TwitterStatus> GetUserTweetsAsync(string tweetUrl)
+		public async Task<IEnumerable<StatusTweet>> GetUserTweetsAsync(string tweetUrl)
 		{
 			var infoResult = await _tweetDataService.GetUserTweetsAsync(tweetUrl);
 
