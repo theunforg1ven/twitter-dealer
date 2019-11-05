@@ -17,7 +17,7 @@ namespace TwitterDealer.Services
 			_twitterService = AuthInit.TwitterService;
 		}
 
-		public async Task<IEnumerable<StatusTweet>> GetUserTweetsAsync(string tweetUrl)
+		public async Task<StatusTweet> GetUserTweetsAsync(string tweetUrl)
 		{
 			var tweetId = tweetUrl.Substring(tweetUrl.LastIndexOf('/') + 1);
 
@@ -28,30 +28,22 @@ namespace TwitterDealer.Services
 				IncludeMyRetweet = false,
 			});
 
-			var result = tweet.Value;
-
-			var list = new List<TwitterStatus>();
+			var resultTweetList = new List<StatusTweet>();
 		
 			var currentTweets = await _twitterService.SearchAsync(new SearchOptions
 			{
-				Q = $"@evrlstng_winter",
+				Q = $"@{tweet.Value.User.ScreenName}",
 				Count = 100,
 				Resulttype = TwitterSearchResultType.Mixed,
 				SinceId = Convert.ToInt64(tweetId),
 				IncludeEntities = true
 			});
 
-			var test = currentTweets.Value.Statuses.Count();
-
 			var search = currentTweets.Value.Statuses
-				.Where(tw => tw.InReplyToStatusId == Convert.ToInt64(tweetId)).ToList();
+				.Where(tw => tw.InReplyToStatusId == Convert.ToInt64(tweetId))
+				.ToList();
 
-			list.AddRange(search);
-
-			foreach (var searchItem in search)
-				list.AddRange(GetReplyToReplies(searchItem));
-
-			var returnSearch = list
+			var statusTweets = search
 				.Select(tw => new StatusTweet
 				{
 					IsFavourite = tw.IsFavorited,
@@ -61,15 +53,33 @@ namespace TwitterDealer.Services
 					Language = tw.Language,
 					IsPossiblySensitive = tw.IsPossiblySensitive,
 					Created = tw.CreatedDate,
-				});
+				})
+				.ToList();
 
-			return returnSearch;
+			for (int i = 0; i < search.Count; i++)
+			{
+				statusTweets[i].Replies = (GetReplyToReplies(search[i]));
+			}
+
+			resultTweetList.AddRange(statusTweets);
+
+			var result = new StatusTweet
+			{
+				IsFavourite = tweet.Value.IsFavorited,
+				RetweetCount = tweet.Value.RetweetCount,
+				TweetText = tweet.Value.Text,
+				Url = $"https://twitter.com/{tweet.Value.User.ScreenName}/status/{tweet.Value.IdStr}",
+				Language = tweet.Value.Language,
+				IsPossiblySensitive = tweet.Value.IsPossiblySensitive,
+				Created = tweet.Value.CreatedDate,
+				Replies = resultTweetList
+			};
+
+			return result;
 		}
 
-		private IEnumerable<TwitterStatus> GetReplyToReplies(TwitterStatus searchResult)
+		private IEnumerable<StatusTweet> GetReplyToReplies(TwitterStatus searchResult)
 		{
-			var tempStatuses = new List<TwitterStatus>();
-   
 			var currentTweets =  _twitterService.Search(new SearchOptions
 			{
 				Q = $"@{searchResult.User.ScreenName}",
@@ -82,14 +92,26 @@ namespace TwitterDealer.Services
 			var search = currentTweets.Statuses
 				.Where(tw => tw.InReplyToStatusId == Convert.ToInt64(searchResult.Id)).ToList();
 
+			var statusTweets = search.Select(tw => new StatusTweet
+			{
+				IsFavourite = tw.IsFavorited,
+				RetweetCount = tw.RetweetCount,
+				TweetText = tw.Text,
+				Url = $"https://twitter.com/{tw.User.ScreenName}/status/{tw.IdStr}",
+				Language = tw.Language,
+				IsPossiblySensitive = tw.IsPossiblySensitive,
+				Created = tw.CreatedDate,
+			}).ToList();
+
 			if (search.Count > 0)
 			{
-				foreach (var searchItem in search)
-					tempStatuses.Add(searchItem);
+				for (int i = 0; i < search.Count; i++)
+				{
+					statusTweets[i].Replies = (GetReplyToReplies(search[i]));
+				}
 			}
 
-			return tempStatuses ?? Enumerable.Empty<TwitterStatus>();
+			return statusTweets ?? Enumerable.Empty<StatusTweet>();
 		}
-
 	}
 }
