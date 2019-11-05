@@ -16,7 +16,7 @@ namespace TwitterDealer.Services
 		{
 			_twitterService = AuthInit.TwitterService;
 		}
-		public async Task<IEnumerable<StatusTweet>> GetUserTweetsAsync(string tweetUrl)
+		public async Task<IEnumerable<TwitterStatus>> GetUserTweetsAsync(string tweetUrl)
 		{
 			var tweetId = tweetUrl.Substring(tweetUrl.LastIndexOf('/') + 1);
 
@@ -33,7 +33,7 @@ namespace TwitterDealer.Services
 		
 			var currentTweets = await _twitterService.SearchAsync(new SearchOptions
 			{
-				Q = $"@HoneyMadTV",
+				Q = $"@elen_de_len",
 				Count = 100,
 				Resulttype = TwitterSearchResultType.Mixed,
 				SinceId = Convert.ToInt64(tweetId),
@@ -43,62 +43,25 @@ namespace TwitterDealer.Services
 			var test = currentTweets.Value.Statuses.Count();
 
 			var search = currentTweets.Value.Statuses
-				.Where(tw => tw.InReplyToStatusId == Convert.ToInt64(tweetId))
-				.Select(tw => new StatusTweet
-				{
-					IsFavourite = tw.IsFavorited,
-					RetweetCount = tw.RetweetCount,
-					TweetText = tw.Text,
-					Url = $"https://twitter.com/{tw.User.ScreenName}/status/{tw.IdStr}",
-					Language = tw.Language,
-					IsPossiblySensitive = tw.IsPossiblySensitive,
-					Created = tw.CreatedDate,
-				});
+				.Where(tw => tw.InReplyToStatusId == Convert.ToInt64(tweetId));
+				//.Select(tw => new StatusTweet
+				//{
+				//	IsFavourite = tw.IsFavorited,
+				//	RetweetCount = tw.RetweetCount,
+				//	TweetText = tw.Text,
+				//	Url = $"https://twitter.com/{tw.User.ScreenName}/status/{tw.IdStr}",
+				//	Language = tw.Language,
+				//	IsPossiblySensitive = tw.IsPossiblySensitive,
+				//	Created = tw.CreatedDate,
+				//});
 
 			return search;
-
-			//while (true)
-			//{
-			//	var currentReplies = await _twitterService.SearchAsync(new SearchOptions
-			//	{
-			//		Q = $"@HoneyMadTV",
-			//		Count = 100,
-			//		Resulttype = TwitterSearchResultType.Mixed,
-			//		SinceId = Convert.ToInt64(tweetId),
-			//		IncludeEntities = true,
-			//		MaxId = maxId ?? null
-			//	});
-
-			//	foreach (var reply in currentReplies.Value.Statuses)
-			//	{
-			//		if (reply.InReplyToStatusId == Convert.ToInt64(tweetId))
-			//		{
-			//			list.Add(new StatusTweet
-			//			{
-			//				IsFavourite = reply.IsFavorited,
-			//				RetweetCount = reply.RetweetCount,
-			//				TweetText = reply.Text,
-			//				Url = $"https://twitter.com/{reply.User.ScreenName}/status/{reply.IdStr}",
-			//				Language = reply.Language,
-			//				IsPossiblySensitive = reply.IsPossiblySensitive,
-			//				Created = reply.CreatedDate,
-			//			});
-
-			//			foreach (var replyToReply in await GetUserTweetsAsync(tweetUrl))
-			//			{
-			//				list.Add(replyToReply);
-			//			}
-
-			//			maxId = reply.Id;
-			//		}
-			//	}
-
-			//	if (currentReplies.Value.Statuses.Count() != 100)
-			//		break;
-			//}
-
-			//return list;
 		}
+
+		//private IEnumerable<TwitterStatus> GetReplyToReplies(IEnumerable<TwitterStatus> searchResult)
+		//{
+
+		//}
 
 	}
 }
