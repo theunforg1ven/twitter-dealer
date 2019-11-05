@@ -29,16 +29,8 @@ namespace TwitterDealer.Services
 
 			var result = tweet.Value;
 
-			// find last post
-
-			var lastUserTweets = await _twitterService.ListTweetsOnUserTimelineAsync(new ListTweetsOnUserTimelineOptions
-			{
-				ScreenName = "HoneyMadTV",
-				Count = 100,
-				IncludeRts = false,
-				ExcludeReplies = true
-			});
-
+			var list = new List<StatusTweet>();
+		
 			var currentTweets = await _twitterService.SearchAsync(new SearchOptions
 			{
 				Q = $"@HoneyMadTV",
@@ -64,6 +56,49 @@ namespace TwitterDealer.Services
 				});
 
 			return search;
+
+			//while (true)
+			//{
+			//	var currentReplies = await _twitterService.SearchAsync(new SearchOptions
+			//	{
+			//		Q = $"@HoneyMadTV",
+			//		Count = 100,
+			//		Resulttype = TwitterSearchResultType.Mixed,
+			//		SinceId = Convert.ToInt64(tweetId),
+			//		IncludeEntities = true,
+			//		MaxId = maxId ?? null
+			//	});
+
+			//	foreach (var reply in currentReplies.Value.Statuses)
+			//	{
+			//		if (reply.InReplyToStatusId == Convert.ToInt64(tweetId))
+			//		{
+			//			list.Add(new StatusTweet
+			//			{
+			//				IsFavourite = reply.IsFavorited,
+			//				RetweetCount = reply.RetweetCount,
+			//				TweetText = reply.Text,
+			//				Url = $"https://twitter.com/{reply.User.ScreenName}/status/{reply.IdStr}",
+			//				Language = reply.Language,
+			//				IsPossiblySensitive = reply.IsPossiblySensitive,
+			//				Created = reply.CreatedDate,
+			//			});
+
+			//			foreach (var replyToReply in await GetUserTweetsAsync(tweetUrl))
+			//			{
+			//				list.Add(replyToReply);
+			//			}
+
+			//			maxId = reply.Id;
+			//		}
+			//	}
+
+			//	if (currentReplies.Value.Statuses.Count() != 100)
+			//		break;
+			//}
+
+			//return list;
 		}
+
 	}
 }
