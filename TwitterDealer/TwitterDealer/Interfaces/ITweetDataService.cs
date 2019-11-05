@@ -9,6 +9,6 @@ namespace TwitterDealer.Interfaces
 {
 	public interface ITweetDataService
 	{
-		Task<IEnumerable<TwitterStatus>> GetUserTweetsAsync(string tweetUrl);
+		Task<IEnumerable<StatusTweet>> GetUserTweetsAsync(string tweetUrl);
 	}
 }

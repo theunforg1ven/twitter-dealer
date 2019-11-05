@@ -22,7 +22,7 @@ namespace TwitterDealer.Controllers
 
 		[HttpGet]
 		[Route("TwitterData")]
-		public async Task<IEnumerable<TwitterStatus>> GetUserTweetsAsync(string tweetUrl)
+		public async Task<IEnumerable<StatusTweet>> GetUserTweetsAsync(string tweetUrl)
 		{
 			var infoResult = await _tweetDataService.GetUserTweetsAsync(tweetUrl);
 
