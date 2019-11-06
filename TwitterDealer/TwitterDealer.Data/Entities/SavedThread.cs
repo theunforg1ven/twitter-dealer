@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using TwitterDealer.Models.BaseModels;
 
-namespace TwitterDealer.Models.TwitterUserModels
+namespace TwitterDealer.Data.Entities
 {
-	public class StatusTweet
+	public class SavedThread
 	{
+		public int Id { get; set; }
+
 		public bool IsFavourite { get; set; }
 
 		public int RetweetCount { get; set; }
@@ -13,8 +13,6 @@ namespace TwitterDealer.Models.TwitterUserModels
 		public string TweetText { get; set; }
 
 		public string Language { get; set; }
-
-		public IEnumerable<BaseUserMedia> MediaUrl { get; set; }
 
 		public bool? IsPossiblySensitive { get; set; }
 
@@ -24,6 +22,6 @@ namespace TwitterDealer.Models.TwitterUserModels
 
 		public DateTime? Created { get; set; }
 
-		public IEnumerable<StatusTweet> Replies { get; set; }
+		public virtual ApplicationUser ApplicationUser { get; set; }
 	}
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -20,6 +21,7 @@ using TwitterDealer.Data;
 using TwitterDealer.Data.Entities;
 using TwitterDealer.Interfaces;
 using TwitterDealer.Models;
+using TwitterDealer.Repositories;
 using TwitterDealer.Services;
 using TwitterDealer.TwitterApi;
 
@@ -39,9 +41,13 @@ namespace TwitterDealer
 
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.AddTransient<ISaveThreadRepository, SaveThreadRepository>();
+
 			services.AddTransient<IUserService, UserService>();
 			services.AddTransient<ITweetDataService, TweetDataService>();
-			
+
+			services.AddHttpContextAccessor();
+
 			// inject app settings
 			services.Configure<ApplicationSettings>(Configuration.GetSection("ApplicationSettings"));
 

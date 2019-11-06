@@ -47,6 +47,7 @@ namespace TwitterDealer.Services
 				.Select(tw => new StatusTweet
 				{
 					IsFavourite = tw.IsFavorited,
+					FavoriteCount = tw.FavoriteCount,
 					RetweetCount = tw.RetweetCount,
 					TweetText = tw.Text,
 					Url = $"https://twitter.com/{tw.User.ScreenName}/status/{tw.IdStr}",
@@ -67,6 +68,7 @@ namespace TwitterDealer.Services
 			{
 				IsFavourite = tweet.Value.IsFavorited,
 				RetweetCount = tweet.Value.RetweetCount,
+				FavoriteCount = tweet.Value.FavoriteCount,
 				TweetText = tweet.Value.Text,
 				Url = $"https://twitter.com/{tweet.Value.User.ScreenName}/status/{tweet.Value.IdStr}",
 				Language = tweet.Value.Language,
@@ -95,6 +97,7 @@ namespace TwitterDealer.Services
 			var statusTweets = search.Select(tw => new StatusTweet
 			{
 				IsFavourite = tw.IsFavorited,
+				FavoriteCount = tw.FavoriteCount,
 				RetweetCount = tw.RetweetCount,
 				TweetText = tw.Text,
 				Url = $"https://twitter.com/{tw.User.ScreenName}/status/{tw.IdStr}",

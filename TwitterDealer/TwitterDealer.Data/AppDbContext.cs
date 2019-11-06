@@ -11,5 +11,7 @@ namespace TwitterDealer.Data
 			: base(options) { }
 
 		public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+
+		public DbSet<SavedThread> SavedThreads { get; set; }
 	}
 }

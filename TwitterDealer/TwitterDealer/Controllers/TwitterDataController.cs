@@ -15,9 +15,13 @@ namespace TwitterDealer.Controllers
 	{
 		private readonly ITweetDataService _tweetDataService;
 
-		public TwitterDataController(ITweetDataService tweetDataService)
+		private readonly ISaveThreadRepository _saveThreadRepository;
+
+		public TwitterDataController(ITweetDataService tweetDataService,
+									 ISaveThreadRepository saveThreadRepository)
 		{
 			_tweetDataService = tweetDataService;
+			_saveThreadRepository = saveThreadRepository;
 		}
 
 		[HttpGet]
@@ -25,6 +29,8 @@ namespace TwitterDealer.Controllers
 		public async Task<StatusTweet> GetUserTweetsAsync(string tweetUrl)
 		{
 			var infoResult = await _tweetDataService.GetUserTweetsAsync(tweetUrl);
+
+			//var isAdded = await _saveThreadRepository.AddThreadAsync(infoResult);
 
 			return infoResult;
 		}

@@ -68,6 +68,7 @@ namespace TwitterDealer.Services
 				.Select(tw => new StatusTweet
 				{
 					IsFavourite = tw.IsFavorited,
+					FavoriteCount = tw.FavoriteCount,
 					RetweetCount = tw.RetweetCount,
 					TweetText = tw.Text,
 					Url = $"https://twitter.com/{screenName}/status/{tw.IdStr}",
