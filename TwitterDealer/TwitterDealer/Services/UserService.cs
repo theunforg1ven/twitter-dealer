@@ -100,7 +100,7 @@ namespace TwitterDealer.Services
 			return twMedia;
 		}
 
-		public IEnumerable<UserMedia> SelectMedia(IEnumerable<TwitterMedia> twMedia)
+		private IEnumerable<UserMedia> SelectMedia(IEnumerable<TwitterMedia> twMedia)
 		{
 			var media = twMedia.Select(m => new UserMedia
 			{
@@ -113,7 +113,7 @@ namespace TwitterDealer.Services
 			return media;
 		}
 
-		public IEnumerable<BaseUserMedia> SelectMediaBase(TwitterStatus twStatus)
+		private IEnumerable<BaseUserMedia> SelectMediaBase(TwitterStatus twStatus)
 		{
 			var media = twStatus.Entities.Media.Select(m => new BaseUserMedia
 			{
@@ -124,7 +124,7 @@ namespace TwitterDealer.Services
 			return media;
 		}
 
-		public TweetMediaType SelectMediaType(TwitterMedia twMedia) => twMedia.MediaType switch
+		private TweetMediaType SelectMediaType(TwitterMedia twMedia) => twMedia.MediaType switch
 		{
 			TwitterMediaType.Photo => TweetMediaType.TweetImage,
 			TwitterMediaType.Video => TweetMediaType.TweetVideo,
