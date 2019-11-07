@@ -22,7 +22,7 @@ namespace TwitterDealer.Controllers
 
 		// GET : /api/UserProfile
 		[HttpGet]
-		[Authorize]
+		[Authorize] // send access token to authorize
 		public async Task<object> GetUserProfile()
 		{
 			string userId = User.Claims.First(c => c.Type == "UserId").Value;
