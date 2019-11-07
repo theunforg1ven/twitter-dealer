@@ -34,16 +34,15 @@ namespace TwitterDealer.Controllers
 		}
 
 		[HttpGet]
+		[Authorize]
 		[Route("TwitterData")]
 		public async Task<StatusTweet> GetUserTweetsAsync(string tweetUrl)
 		{
 			var infoResult = await _tweetDataService.GetUserTweetsAsync(tweetUrl);
 
-			//var isAuth = User.Identity.IsAuthenticated;
+			var userId = User.Claims.First(c => c.Type == "UserId")?.Value;
 
-			//var userId = User.FindFirstValue("UserId");
-
-			//var isAdded = await _saveThreadRepository.AddThreadAsync(infoResult, userId);
+			var isAdded = await _saveThreadRepository.AddThreadAsync(infoResult, userId);
 
 			return infoResult;
 		}

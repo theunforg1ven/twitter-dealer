@@ -42,7 +42,12 @@ namespace TwitterDealer.Repositories
 				ApplicationUser = user
 			};
 
-			await _appDbContext.SavedThreads.AddAsync(thread);
+			var isThreadExist = await _appDbContext.SavedThreads.FirstOrDefaultAsync(th => th.Url == thread.Url);
+
+			if (isThreadExist == null)
+			{
+				await _appDbContext.SavedThreads.AddAsync(thread);
+			}
 
 			if (_appDbContext.SaveChanges() > 0)
 				return true;
