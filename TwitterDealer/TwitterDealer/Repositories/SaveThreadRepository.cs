@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using TwitterDealer.Data;
 using TwitterDealer.Data.Entities;
@@ -54,8 +55,10 @@ namespace TwitterDealer.Repositories
 
 		private async Task<ApplicationUser> GetCurrentUserAsync()
 		{
-			var contextUser = _contextAccessor.HttpContext.User.Identity.Name;
+			var claimsIdentity = _contextAccessor.HttpContext.User.Identity as ClaimsIdentity;
+			var userId = claimsIdentity.FindFirst("UserId")?.Value;
 
+			var contextUser = _contextAccessor.HttpContext.User.Identity.Name;
 			var user = await _userManager.FindByNameAsync(contextUser);
 
 			return user;

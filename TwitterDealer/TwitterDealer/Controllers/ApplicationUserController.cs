@@ -69,7 +69,7 @@ namespace TwitterDealer.Controllers
 				{
 					Subject = new ClaimsIdentity(new Claim[]
 					{
-						new Claim("UserId", user.Id.ToString())
+						new Claim("UserId", user.Id.ToString()),
 					}),
 					Expires = DateTime.UtcNow.AddDays(5),
 					SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
