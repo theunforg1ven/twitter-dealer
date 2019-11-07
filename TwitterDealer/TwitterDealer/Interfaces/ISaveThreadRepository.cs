@@ -5,6 +5,6 @@ namespace TwitterDealer.Interfaces
 {
 	public interface ISaveThreadRepository
 	{
-		Task<bool> AddThreadAsync(StatusTweet stTweet);
+		Task<bool> AddThreadAsync(StatusTweet stTweet, string userId);
 	}
 }

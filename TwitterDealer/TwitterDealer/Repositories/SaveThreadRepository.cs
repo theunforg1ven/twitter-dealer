@@ -19,19 +19,16 @@ namespace TwitterDealer.Repositories
 
 		private readonly UserManager<ApplicationUser> _userManager;
 
-		private readonly IHttpContextAccessor _contextAccessor;
-
-		public SaveThreadRepository(AppDbContext appDbContext,
-									IHttpContextAccessor contextAccessor,
-									UserManager<ApplicationUser> userManager)
+		public SaveThreadRepository(AppDbContext appDbContext, UserManager<ApplicationUser> userManager)
 		{
 			_appDbContext = appDbContext;
-			_contextAccessor = contextAccessor;
 			_userManager = userManager;
 		}
 
-		public async Task<bool> AddThreadAsync(StatusTweet stTweet)
+		public async Task<bool> AddThreadAsync(StatusTweet stTweet, string userId)
 		{
+			var user = await _userManager.FindByIdAsync(userId);
+
 			var thread = new SavedThread()
 			{
 				IsFavourite = stTweet.IsFavourite,
@@ -42,7 +39,7 @@ namespace TwitterDealer.Repositories
 				Language = stTweet.Language,
 				IsPossiblySensitive = stTweet.IsPossiblySensitive,
 				Created = stTweet.Created,
-				ApplicationUser = await GetCurrentUserAsync()
+				ApplicationUser = user
 			};
 
 			await _appDbContext.SavedThreads.AddAsync(thread);
@@ -51,17 +48,6 @@ namespace TwitterDealer.Repositories
 				return true;
 
 			return false;
-		}
-
-		private async Task<ApplicationUser> GetCurrentUserAsync()
-		{
-			var claimsIdentity = _contextAccessor.HttpContext.User.Identity as ClaimsIdentity;
-			var userId = claimsIdentity.FindFirst("UserId")?.Value;
-
-			var contextUser = _contextAccessor.HttpContext.User.Identity.Name;
-			var user = await _userManager.FindByNameAsync(contextUser);
-
-			return user;
 		}
 	}
 }
