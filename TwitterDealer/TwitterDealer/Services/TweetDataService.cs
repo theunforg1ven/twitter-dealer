@@ -40,8 +40,12 @@ namespace TwitterDealer.Services
 			});
 
 			var search = currentTweets.Value.Statuses
-				.Where(tw => tw.InReplyToStatusId == Convert.ToInt64(tweetId))
+				.Where(tw => tw.InReplyToStatusId == Convert.ToInt64(tweetId)) // || tw.InReplyToScreenName == tweet.Value.User.ScreenName
 				.ToList();
+
+			var querySearch = await GetTwitterStatuses(tweet.Value);
+
+			search.AddRange(querySearch);
 
 			var statusTweets = search
 				.Select(tw => new StatusTweet
@@ -59,7 +63,7 @@ namespace TwitterDealer.Services
 
 			for (int i = 0; i < search.Count; i++)
 			{
-				statusTweets[i].Replies = (GetReplyToReplies(search[i]));
+				statusTweets[i].Replies = (await GetReplyToReplies(search[i]));
 			}
 
 			resultTweetList.AddRange(statusTweets);
@@ -80,9 +84,9 @@ namespace TwitterDealer.Services
 			return result;
 		}
 
-		private IEnumerable<StatusTweet> GetReplyToReplies(TwitterStatus searchResult)
+		private async Task<IEnumerable<StatusTweet>> GetReplyToReplies(TwitterStatus searchResult)
 		{
-			var currentTweets =  _twitterService.Search(new SearchOptions
+			var currentTweets = await _twitterService.SearchAsync(new SearchOptions
 			{
 				Q = $"@{searchResult.User.ScreenName}",
 				Count = 100,
@@ -91,8 +95,12 @@ namespace TwitterDealer.Services
 				IncludeEntities = true
 			});
 
-			var search = currentTweets.Statuses
+			var search = currentTweets.Value.Statuses
 				.Where(tw => tw.InReplyToStatusId == Convert.ToInt64(searchResult.Id)).ToList();
+
+			var querySearch = await GetTwitterStatuses(searchResult);
+
+			search.AddRange(querySearch);
 
 			var statusTweets = search.Select(tw => new StatusTweet
 			{
@@ -110,11 +118,28 @@ namespace TwitterDealer.Services
 			{
 				for (int i = 0; i < search.Count; i++)
 				{
-					statusTweets[i].Replies = (GetReplyToReplies(search[i]));
+					statusTweets[i].Replies = (await GetReplyToReplies(search[i]));
 				}
 			}
 
 			return statusTweets ?? Enumerable.Empty<StatusTweet>();
+		}
+
+		private async Task<IEnumerable<TwitterStatus>> GetTwitterStatuses(TwitterStatus searchResult)
+		{
+			var userTweets = await _twitterService.ListTweetsOnUserTimelineAsync(new ListTweetsOnUserTimelineOptions
+			{
+				ScreenName = searchResult.User.ScreenName,
+				Count = 100,
+				IncludeRts = false,
+				ExcludeReplies = false
+			});
+
+			var querySearch = userTweets.Value
+				.Where(tw => tw.InReplyToStatusId == Convert.ToInt64(searchResult.Id))
+				.ToList();
+
+			return querySearch;
 		}
 	}
 }
