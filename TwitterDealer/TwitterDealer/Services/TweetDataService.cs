@@ -29,21 +29,10 @@ namespace TwitterDealer.Services
 			});
 
 			var resultTweetList = new List<StatusTweet>();
-		
-			var currentTweets = await _twitterService.SearchAsync(new SearchOptions
-			{
-				Q = $"@{tweet.Value.User.ScreenName}",
-				Count = 100,
-				Resulttype = TwitterSearchResultType.Mixed,
-				SinceId = Convert.ToInt64(tweetId),
-				IncludeEntities = true
-			});
 
-			var search = currentTweets.Value.Statuses
-				.Where(tw => tw.InReplyToStatusId == Convert.ToInt64(tweetId)) // || tw.InReplyToScreenName == tweet.Value.User.ScreenName
-				.ToList();
+			var search = await GetCurrentRepliesAsync(tweet.Value);
 
-			var querySearch = await GetTwitterStatuses(tweet.Value);
+			var querySearch = await GetTwitterStatusesAsync(tweet.Value);
 
 			search.AddRange(querySearch);
 
@@ -58,12 +47,14 @@ namespace TwitterDealer.Services
 					Language = tw.Language,
 					IsPossiblySensitive = tw.IsPossiblySensitive,
 					Created = tw.CreatedDate,
+					UserName = tw.User.Name,
+					UserScreenName = tw.User.ScreenName
 				})
 				.ToList();
 
 			for (int i = 0; i < search.Count; i++)
 			{
-				statusTweets[i].Replies = (await GetReplyToReplies(search[i]));
+				statusTweets[i].Replies = (await GetReplyToRepliesAsync(search[i]));
 			}
 
 			resultTweetList.AddRange(statusTweets);
@@ -78,27 +69,19 @@ namespace TwitterDealer.Services
 				Language = tweet.Value.Language,
 				IsPossiblySensitive = tweet.Value.IsPossiblySensitive,
 				Created = tweet.Value.CreatedDate,
+				UserName = tweet.Value.User.Name,
+				UserScreenName = tweet.Value.User.ScreenName,
 				Replies = resultTweetList
 			};
 
 			return result;
 		}
 
-		private async Task<IEnumerable<StatusTweet>> GetReplyToReplies(TwitterStatus searchResult)
-		{
-			var currentTweets = await _twitterService.SearchAsync(new SearchOptions
-			{
-				Q = $"@{searchResult.User.ScreenName}",
-				Count = 100,
-				Resulttype = TwitterSearchResultType.Mixed,
-				SinceId = searchResult.Id,
-				IncludeEntities = true
-			});
+		private async Task<IEnumerable<StatusTweet>> GetReplyToRepliesAsync(TwitterStatus searchResult)
+		{	
+			var search = await GetCurrentRepliesAsync(searchResult);
 
-			var search = currentTweets.Value.Statuses
-				.Where(tw => tw.InReplyToStatusId == Convert.ToInt64(searchResult.Id)).ToList();
-
-			var querySearch = await GetTwitterStatuses(searchResult);
+			var querySearch = await GetTwitterStatusesAsync(searchResult);
 
 			search.AddRange(querySearch);
 
@@ -112,20 +95,39 @@ namespace TwitterDealer.Services
 				Language = tw.Language,
 				IsPossiblySensitive = tw.IsPossiblySensitive,
 				Created = tw.CreatedDate,
+				UserName = tw.User.Name,
+				UserScreenName = tw.User.ScreenName
 			}).ToList();
 
 			if (search.Count > 0)
 			{
 				for (int i = 0; i < search.Count; i++)
 				{
-					statusTweets[i].Replies = (await GetReplyToReplies(search[i]));
+					statusTweets[i].Replies = (await GetReplyToRepliesAsync(search[i]));
 				}
 			}
 
 			return statusTweets ?? Enumerable.Empty<StatusTweet>();
 		}
 
-		private async Task<IEnumerable<TwitterStatus>> GetTwitterStatuses(TwitterStatus searchResult)
+		private async Task<List<TwitterStatus>> GetCurrentRepliesAsync(TwitterStatus searchResult)
+		{
+			var currentTweets = await _twitterService.SearchAsync(new SearchOptions
+			{
+				Q = $"@{searchResult.User.ScreenName}",
+				Count = 100,
+				Resulttype = TwitterSearchResultType.Mixed,
+				SinceId = searchResult.Id,
+				IncludeEntities = true
+			});
+
+			var search = currentTweets.Value.Statuses
+				.Where(tw => tw.InReplyToStatusId == Convert.ToInt64(searchResult.Id)).ToList();
+
+			return search;
+		}
+
+		private async Task<IEnumerable<TwitterStatus>> GetTwitterStatusesAsync(TwitterStatus searchResult)
 		{
 			var userTweets = await _twitterService.ListTweetsOnUserTimelineAsync(new ListTweetsOnUserTimelineOptions
 			{

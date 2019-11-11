@@ -24,6 +24,10 @@ namespace TwitterDealer.Models.TwitterUserModels
 
 		public DateTime? Created { get; set; }
 
+		public string UserName { get; set; }
+
+		public string UserScreenName { get; set; }
+
 		public IEnumerable<StatusTweet> Replies { get; set; }
 	}
 }
