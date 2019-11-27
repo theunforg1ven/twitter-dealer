@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TweetSharp;
+using TwitterDealer.Helpers;
 using TwitterDealer.Interfaces;
 using TwitterDealer.Models.BaseModels;
 using TwitterDealer.Models.Enums;
@@ -14,9 +15,12 @@ namespace TwitterDealer.Services
 	public class UserService : IUserService
 	{
 		private readonly TwitterService _twitterService;
+
+		private readonly SelectMediaHelper _sMediaHelper;
 		public UserService()
 		{
 			_twitterService = AuthInit.TwitterService;
+			_sMediaHelper = new SelectMediaHelper();
 		}
 
 		public async Task<MainUserModel> GetUserInfoAsync(string screenName)
@@ -76,7 +80,7 @@ namespace TwitterDealer.Services
 					Language = tw.Language,
 					IsPossiblySensitive = tw.IsPossiblySensitive,
 					Created = tw.CreatedDate,
-					MediaUrl = SelectMediaBase(tw)
+					MediaUrl = _sMediaHelper.SelectMediaBase(tw)
 				}); 
 
 			return statusTweets;
@@ -93,45 +97,13 @@ namespace TwitterDealer.Services
 			});
 
 			var querymedia = media.Value
-							.Where(tw => tw.Entities.Media != null)
-							.Select(tw => tw.Entities.Media)
+							.Where(tw => tw.ExtendedEntities != null)
+							.Select(tw => tw.ExtendedEntities.Media)
 							.SelectMany(m => m);
 
-			var twMedia = SelectMedia(querymedia);
+			var twMedia = _sMediaHelper.SelectMedia(querymedia);
 
 			return twMedia;
 		}
-
-		private IEnumerable<UserMedia> SelectMedia(IEnumerable<TwitterMedia> twMedia)
-		{
-			var media = twMedia.Select(m => new UserMedia
-			{
-				MediaUrl = m.MediaUrl,
-				MediaType = SelectMediaType(m),
-				TweetUrl = m.Url,
-				TweetContent = null
-			});
-
-			return media;
-		}
-
-		private IEnumerable<BaseUserMedia> SelectMediaBase(TwitterStatus twStatus)
-		{
-			var media = twStatus.Entities.Media.Select(m => new BaseUserMedia
-			{
-				MediaUrl = m.MediaUrl,
-				MediaType = SelectMediaType(m)
-			});
-
-			return media;
-		}
-
-		private TweetMediaType SelectMediaType(TwitterMedia twMedia) => twMedia.MediaType switch
-		{
-			TwitterMediaType.Photo => TweetMediaType.TweetImage,
-			TwitterMediaType.Video => TweetMediaType.TweetVideo,
-			TwitterMediaType.AnimatedGif => TweetMediaType.TweetGif,
-			_ => TweetMediaType.None,
-		};
 	}
 }

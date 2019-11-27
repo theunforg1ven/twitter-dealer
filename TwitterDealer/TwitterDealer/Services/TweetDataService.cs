@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TweetSharp;
+using TwitterDealer.Helpers;
 using TwitterDealer.Interfaces;
 using TwitterDealer.Models.TwitterUserModels;
 using TwitterDealer.TwitterApi;
@@ -12,9 +13,12 @@ namespace TwitterDealer.Services
 	public class TweetDataService : ITweetDataService
 	{
 		private readonly TwitterService _twitterService;
+
+		private readonly SelectMediaHelper _sMediaHelper;
 		public TweetDataService()
 		{
 			_twitterService = AuthInit.TwitterService;
+			_sMediaHelper = new SelectMediaHelper();
 		}
 
 		public async Task<StatusTweet> GetUserTweetsAsync(string tweetUrl)
@@ -48,7 +52,8 @@ namespace TwitterDealer.Services
 					IsPossiblySensitive = tw.IsPossiblySensitive,
 					Created = tw.CreatedDate,
 					UserName = tw.User.Name,
-					UserScreenName = tw.User.ScreenName
+					UserScreenName = tw.User.ScreenName,
+					MediaUrl = _sMediaHelper.SelectMediaBase(tw)
 				})
 				.ToList();
 
@@ -71,7 +76,8 @@ namespace TwitterDealer.Services
 				Created = tweet.Value.CreatedDate,
 				UserName = tweet.Value.User.Name,
 				UserScreenName = tweet.Value.User.ScreenName,
-				Replies = resultTweetList
+				Replies = resultTweetList,
+				MediaUrl = _sMediaHelper.SelectMediaBase(tweet.Value)
 			};
 
 			return result;
@@ -85,19 +91,21 @@ namespace TwitterDealer.Services
 
 			search.AddRange(querySearch);
 
-			var statusTweets = search.Select(tw => new StatusTweet
-			{
-				IsFavourite = tw.IsFavorited,
-				FavoriteCount = tw.FavoriteCount,
-				RetweetCount = tw.RetweetCount,
-				TweetText = tw.Text,
-				Url = $"https://twitter.com/{tw.User.ScreenName}/status/{tw.IdStr}",
-				Language = tw.Language,
-				IsPossiblySensitive = tw.IsPossiblySensitive,
-				Created = tw.CreatedDate,
-				UserName = tw.User.Name,
-				UserScreenName = tw.User.ScreenName
-			}).ToList();
+			var statusTweets = search
+				.Select(tw => new StatusTweet
+				{
+					IsFavourite = tw.IsFavorited,
+					FavoriteCount = tw.FavoriteCount,
+					RetweetCount = tw.RetweetCount,
+					TweetText = tw.Text,
+					Url = $"https://twitter.com/{tw.User.ScreenName}/status/{tw.IdStr}",
+					Language = tw.Language,
+					IsPossiblySensitive = tw.IsPossiblySensitive,
+					Created = tw.CreatedDate,
+					UserName = tw.User.Name,
+					UserScreenName = tw.User.ScreenName,
+					MediaUrl = _sMediaHelper.SelectMediaBase(tw)
+				}).ToList();
 
 			if (search.Count > 0)
 			{
