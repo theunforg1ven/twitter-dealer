@@ -24,11 +24,15 @@ namespace TwitterDealer.Helpers
 
 		public IEnumerable<BaseUserMedia> SelectMediaBase(TwitterStatus twStatus)
 		{
+			if (twStatus.ExtendedEntities == null)
+				return null;
+
 			var media = twStatus.ExtendedEntities.Media.Select(m => new BaseUserMedia
 			{
 				MediaUrl = m.MediaUrl.ToString(),
 				MediaType = SelectMediaType(m)
 			});
+
 
 			return media;
 		}

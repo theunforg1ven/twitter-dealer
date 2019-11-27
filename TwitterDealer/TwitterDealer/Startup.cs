@@ -45,6 +45,7 @@ namespace TwitterDealer
 
 			services.AddTransient<IUserService, UserService>();
 			services.AddTransient<ITweetDataService, TweetDataService>();
+			services.AddTransient<ITweetThreadService, TweetThreadService>();
 
 			services.AddHttpContextAccessor();
 
