@@ -15,6 +15,7 @@ namespace TwitterDealer.Services
 		private readonly TwitterService _twitterService;
 
 		private readonly SelectMediaHelper _sMediaHelper;
+
 		public TweetDataService()
 		{
 			_twitterService = AuthInit.TwitterService;
