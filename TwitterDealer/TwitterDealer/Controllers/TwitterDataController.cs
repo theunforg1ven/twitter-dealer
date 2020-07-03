@@ -34,7 +34,7 @@ namespace TwitterDealer.Controllers
 		}
 
 		[HttpGet]
-		[Authorize] // send access token to authorize
+		//[Authorize] // send access token to authorize
 		[Route("TwitterData")]
 		public async Task<StatusTweet> GetUserTweetsAsync(string tweetUrl)
 		{

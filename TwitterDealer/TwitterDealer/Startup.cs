@@ -108,12 +108,11 @@ namespace TwitterDealer
 				app.UseDeveloperExceptionPage();
 			}
 			
-			app.UseAuthentication();
-
 			app.UseCors(options => options.WithOrigins(Configuration["ApplicationSettings:ClientUrl"].ToString())
-											.AllowAnyMethod()
-											.AllowAnyHeader());
-
+														.AllowAnyMethod()
+														.AllowAnyHeader()
+														.AllowCredentials());
+			app.UseAuthentication();
 			app.UseHttpsRedirection();
 			app.UseRouting();
 			app.UseAuthorization();
