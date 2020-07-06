@@ -57,6 +57,7 @@ import { LoginComponent } from './user/login/login.component';
 import { HomeComponent } from './home/home.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { UserprofileComponent } from './home/userprofile/userprofile.component';
+import { NavComponent } from './nav/nav.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { UserprofileComponent } from './home/userprofile/userprofile.component';
     RegistrationComponent,
     LoginComponent,
     HomeComponent,
-    UserprofileComponent
+    UserprofileComponent,
+    NavComponent
   ],
   imports: [
     BrowserModule,

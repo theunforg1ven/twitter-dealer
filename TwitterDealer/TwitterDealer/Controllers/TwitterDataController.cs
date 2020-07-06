@@ -40,9 +40,9 @@ namespace TwitterDealer.Controllers
 		{
 			var infoResult = await _tweetDataService.GetUserTweetsAsync(tweetUrl);
 
-			var userId = User.Claims.First(c => c.Type == "UserId")?.Value;
+			//var userId = User.Claims.First(c => c.Type == "UserId")?.Value;
 
-			var isAdded = await _saveThreadRepository.AddThreadAsync(infoResult, userId);
+			//var isAdded = await _saveThreadRepository.AddThreadAsync(infoResult, userId);
 
 			return infoResult;
 		}
