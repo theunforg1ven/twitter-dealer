@@ -46,6 +46,8 @@ namespace TwitterDealer
 			services.AddTransient<IUserService, UserService>();
 			services.AddTransient<ITweetDataService, TweetDataService>();
 			services.AddTransient<ITweetThreadService, TweetThreadService>();
+			
+			services.AddScoped<IAuthRepository, AuthRepository>();
 
 			services.AddHttpContextAccessor();
 
@@ -53,13 +55,6 @@ namespace TwitterDealer
 			services.Configure<ApplicationSettings>(Configuration.GetSection("ApplicationSettings"));
 
 			services.AddControllers();
-				 //.AddNewtonsoftJson(options =>
-				 //{
-					// var resolver = options.SerializerSettings.ContractResolver;
-					// if (resolver != null)
-					//	 ((DefaultContractResolver)resolver).NamingStrategy = null; // use real values to serialize
-				 //});
-
 			services.AddDbContext<AppDbContext>(options =>
 			options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
