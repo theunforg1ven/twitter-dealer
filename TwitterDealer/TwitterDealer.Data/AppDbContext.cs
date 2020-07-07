@@ -10,8 +10,6 @@ namespace TwitterDealer.Data
 		public AppDbContext(DbContextOptions<AppDbContext> options) 
 			: base(options) { }
 
-		public DbSet<ApplicationUser> ApplicationUsers { get; set; }
-
 		public DbSet<SavedThread> SavedThreads { get; set; }
 	}
 }

@@ -22,6 +22,6 @@ namespace TwitterDealer.Data.Entities
 
 		public DateTime? Created { get; set; }
 
-		public virtual ApplicationUser ApplicationUser { get; set; }
+		//public virtual ApplicationUser ApplicationUser { get; set; }
 	}
 }
