@@ -13,28 +13,27 @@ namespace TwitterDealer.Controllers
 	[Route("api/[controller]")]
 	public class UserProfileController : ControllerBase
 	{
-		private UserManager<ApplicationUser> _userManager;
 
-		public UserProfileController(UserManager<ApplicationUser> userManager)
+		public UserProfileController()
 		{
-			_userManager = userManager;
+			
 		}
 
-		// GET : /api/UserProfile
-		[HttpGet]
-		[Authorize] // send access token to authorize
-		public async Task<object> GetUserProfile()
-		{
-			string userId = User.Claims.First(c => c.Type == "UserId").Value;
+		//// GET : /api/UserProfile
+		//[HttpGet]
+		//[Authorize] // send access token to authorize
+		//public async Task<object> GetUserProfile()
+		//{
+		//	string userId = User.Claims.First(c => c.Type == "UserId").Value;
 
-			var user = await _userManager.FindByIdAsync(userId);
+		//	//var user = await _userManager.FindByIdAsync(userId);
 
-			return new
-			{
-				user.TwitterUsername,
-				user.Email,
-				user.UserName
-			};
-		}
+		//	//return new
+		//	//{
+		//	//	user.TwitterUsername,
+		//	//	user.Email,
+		//	//	user.UserName
+		//	//};
+		//}
 	}
 }

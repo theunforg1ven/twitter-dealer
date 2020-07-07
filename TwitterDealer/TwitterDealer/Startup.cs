@@ -63,8 +63,6 @@ namespace TwitterDealer
 			services.AddDbContext<AppDbContext>(options =>
 			options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-			services.AddDefaultIdentity<ApplicationUser>()
-				.AddEntityFrameworkStores<AppDbContext>();
 
 			services.Configure<IdentityOptions>(options => 
 			{

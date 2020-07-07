@@ -18,15 +18,13 @@ namespace TwitterDealer.Controllers
 
 		private readonly ISaveThreadRepository _saveThreadRepository;
 
-		private readonly UserManager<ApplicationUser> _userManager;
-
 		public TwitterThreadController(ITweetThreadService tweetThreadService,
-									 ISaveThreadRepository saveThreadRepository,
-									 UserManager<ApplicationUser> userManager)
+									 ISaveThreadRepository saveThreadRepository
+									 )
 		{
 			_tweetThreadService = tweetThreadService;
 			_saveThreadRepository = saveThreadRepository;
-			_userManager = userManager;
+			
 		}
 
 		[HttpGet]

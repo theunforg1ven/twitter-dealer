@@ -5,11 +5,13 @@ using TwitterDealer.Data.Entities;
 
 namespace TwitterDealer.Data
 {
-	public class AppDbContext : IdentityDbContext
+	public class AppDbContext : DbContext
 	{
 		public AppDbContext(DbContextOptions<AppDbContext> options) 
 			: base(options) { }
 
 		public DbSet<SavedThread> SavedThreads { get; set; }
+
+		public DbSet<User> Users { get; set; }
 	}
 }
