@@ -23,4 +23,13 @@ export class AuthService {
         })
       );
   }
+
+  // register(user: User) {
+  //   return this.http.post(this.rootUrl + '/register', user);
+  // }
+
+  // loggedIn(): boolean {
+  //   const token = localStorage.getItem('token');
+  //   return !this.jwtHelper.isTokenExpired(token);
+  // }
 }
