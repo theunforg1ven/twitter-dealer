@@ -11,7 +11,7 @@ import { AuthService } from '../services/auth.service';
 export class NavComponent implements OnInit {
   model: any = {};
 
-  constructor(private authService: AuthService,
+  constructor(public authService: AuthService,
               private toastr: ToastrService,
               private router: Router) { }
 
@@ -31,8 +31,7 @@ export class NavComponent implements OnInit {
   }
 
   loggedIn(): boolean {
-    const token = localStorage.getItem('token');
-    return !!token;
+    return this.authService.loggedIn();
   }
 
   logout(): void {
