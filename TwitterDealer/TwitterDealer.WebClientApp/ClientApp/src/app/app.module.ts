@@ -13,13 +13,23 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { ErrorInterceptorProvider } from './services/error.interceptor';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ThreadMessagesComponent } from './thread-messages/thread-messages.component';
+import { UserThreadComponent } from './user-thread/user-thread.component';
+import { UserTweetsComponent } from './user-tweets/user-tweets.component';
+import { UserMediaComponent } from './user-media/user-media.component';
+import { UserInfoComponent } from './user-info/user-info.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
     HomeComponent,
-    RegisterComponent
+    RegisterComponent,
+    ThreadMessagesComponent,
+    UserThreadComponent,
+    UserTweetsComponent,
+    UserMediaComponent,
+    UserInfoComponent
   ],
   imports: [
     BrowserModule,
