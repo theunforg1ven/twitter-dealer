@@ -18,6 +18,7 @@ import { UserThreadComponent } from './user-thread/user-thread.component';
 import { UserTweetsComponent } from './user-tweets/user-tweets.component';
 import { UserMediaComponent } from './user-media/user-media.component';
 import { UserInfoComponent } from './user-info/user-info.component';
+import { AuthGuard } from './guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { UserInfoComponent } from './user-info/user-info.component';
   ],
   providers: [
     AuthService,
-    ErrorInterceptorProvider
+    ErrorInterceptorProvider,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

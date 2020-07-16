@@ -23,11 +23,14 @@ export class NavComponent implements OnInit {
       this.toastr.success('Welcome back', 'Logged in successfully', {
        positionClass: 'toast-bottom-right'
        });
+
      }, error => {
        this.toastr.error(error, 'Error ocurred', {
          positionClass: 'toast-bottom-right'
        });
-     });
+     }, () => {
+      this.router.navigate(['/threadmessages']);
+    });
   }
 
   loggedIn(): boolean {
@@ -39,6 +42,7 @@ export class NavComponent implements OnInit {
     this.toastr.info('Logged out', 'Information', {
       positionClass: 'toast-bottom-right'
     });
+    this.router.navigate(['/home']);
   }
 
 }
