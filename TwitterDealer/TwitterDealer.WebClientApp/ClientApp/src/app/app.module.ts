@@ -19,6 +19,7 @@ import { UserTweetsComponent } from './user-tweets/user-tweets.component';
 import { UserMediaComponent } from './user-media/user-media.component';
 import { UserInfoComponent } from './user-info/user-info.component';
 import { AuthGuard } from './guards/auth.guard';
+import { MembersComponent } from './members/members.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { AuthGuard } from './guards/auth.guard';
     UserThreadComponent,
     UserTweetsComponent,
     UserMediaComponent,
-    UserInfoComponent
+    UserInfoComponent,
+    MembersComponent
   ],
   imports: [
     BrowserModule,

@@ -7,6 +7,7 @@ import { UserMediaComponent } from './user-media/user-media.component';
 import { UserTweetsComponent } from './user-tweets/user-tweets.component';
 import { UserThreadComponent } from './user-thread/user-thread.component';
 import { AuthGuard } from './guards/auth.guard';
+import { MembersComponent } from './members/members.component';
 
 
 const routes: Routes = [
@@ -21,6 +22,7 @@ const routes: Routes = [
       { path: 'userinfo', component: UserInfoComponent },
       { path: 'usermedia', component: UserMediaComponent },
       { path: 'usertweets', component: UserTweetsComponent },
+      { path: 'members', component: MembersComponent },
     ]
   },
   { path: '**', redirectTo: '', pathMatch: 'full' },
