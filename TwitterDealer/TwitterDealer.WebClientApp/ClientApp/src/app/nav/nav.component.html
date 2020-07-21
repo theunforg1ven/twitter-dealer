@@ -14,9 +14,9 @@
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" dropdownToggle> Get User Data</a>
         
             <div class="dropdown-menu mt-3" *dropdownMenu>
-            <a class="dropdown-item" [routerLink]="['/usertweets']">Get User Tweets</a>
-            <a class="dropdown-item" [routerLink]="['/usermedia']">Get User Media</a>
-            <a class="dropdown-item" [routerLink]="['/userinfo']">Get User Info</a>
+                <a class="dropdown-item" [routerLink]="['/usertweets']">Get User Tweets</a>
+                <a class="dropdown-item" [routerLink]="['/usermedia']">Get User Media</a>
+                <a class="dropdown-item" [routerLink]="['/userinfo']">Get User Info</a>
             </div>
         </li>
         <li class="nav-item" routerLinkActive="active">
@@ -24,9 +24,6 @@
         </li>
     </ul>
 
-        
-    
-    
     <div *ngIf="loggedIn()" class="dropdown" dropdown >
         <a class="dropdown-toggle text-light" dropdownToggle> Welcome {{authService.decodedToken?.unique_name | titlecase}}</a>
         
@@ -37,7 +34,7 @@
         </div>
     </div>
 
-        <form *ngIf="!loggedIn()" #loginForm="ngForm" class="form-inline ml-5" (ngSubmit)="login()">
+    <form *ngIf="!loggedIn()" #loginForm="ngForm" class="form-inline ml-5" (ngSubmit)="login()">
         <input class="form-control mr-sm-2" type="text" name="username" #username="ngModel"
                 placeholder="Username" required [(ngModel)]="model.username">
         <input class="form-control mr-sm-2" type="password" name="password" #password="ngModel"
