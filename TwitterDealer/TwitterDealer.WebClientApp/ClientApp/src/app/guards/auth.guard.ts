@@ -15,9 +15,7 @@ export class AuthGuard implements CanActivate {
     if (this.authService.loggedIn()) {
       return true;
     }
-    this.toastr.error('No permission to access page!', 'Error', {
-      positionClass: 'toast-bottom-right'
-    });
+    this.toastr.error('No permission to access page!', 'Error', { positionClass: 'toast-bottom-right' });
     this.router.navigate(['/home']);
     return false;
   }
