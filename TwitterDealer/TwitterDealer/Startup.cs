@@ -44,6 +44,7 @@ namespace TwitterDealer
 
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.AddTransient<Seed>();
 			services.AddTransient<ISaveThreadRepository, SaveThreadRepository>();
 
 			services.AddTransient<IUserService, UserService>();
@@ -98,7 +99,7 @@ namespace TwitterDealer
 
 		}
 
-		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+		public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Seed seeder)
 		{
 			if (env.IsDevelopment())
 			{
@@ -121,7 +122,9 @@ namespace TwitterDealer
 					});
 				});
 			}
-			
+
+			//seeder.SeedUsers();
+
 			app.UseCors(options => options.WithOrigins(Configuration["ApplicationSettings:ClientUrl"].ToString())
 														.AllowAnyMethod()
 														.AllowAnyHeader()

@@ -13,5 +13,7 @@ namespace TwitterDealer.Data
 		public DbSet<SavedThread> SavedThreads { get; set; }
 
 		public DbSet<User> Users { get; set; }
+
+		public DbSet<Photo> Photos { get; set; }
 	}
 }
