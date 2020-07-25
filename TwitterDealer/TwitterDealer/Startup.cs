@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using AutoMapper;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -52,16 +53,20 @@ namespace TwitterDealer
 			services.AddTransient<ITweetThreadService, TweetThreadService>();
 			
 			services.AddScoped<IAuthRepository, AuthRepository>();
+			services.AddScoped<IDealerRepository, DealerRepository>();
 
 			services.AddHttpContextAccessor();
 
 			// inject app settings
 			services.Configure<ApplicationSettings>(Configuration.GetSection("ApplicationSettings"));
 
-			services.AddControllers();
+			services.AddControllers().AddNewtonsoftJson(o =>
+			{
+				o.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+			});
+
 			services.AddDbContext<AppDbContext>(options =>
 			options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
 
 			services.Configure<IdentityOptions>(options => 
 			{
@@ -73,6 +78,7 @@ namespace TwitterDealer
 			});
 
 			services.AddCors();
+			services.AddAutoMapper(typeof(Startup));
 
 			// jwt web token auth
 
