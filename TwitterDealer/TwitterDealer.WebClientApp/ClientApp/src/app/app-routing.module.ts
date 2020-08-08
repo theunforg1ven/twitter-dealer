@@ -8,6 +8,9 @@ import { UserTweetsComponent } from './user-tweets/user-tweets.component';
 import { UserThreadComponent } from './user-thread/user-thread.component';
 import { AuthGuard } from './guards/auth.guard';
 import { MembersComponent } from './members/members.component';
+import { MemberDetailComponent } from './members/member-detail/member-detail.component';
+import { MemberDetailResolver } from './resolvers/member-detail.resolver';
+import { MemberListResolver } from './resolvers/member-list.resolver';
 
 
 const routes: Routes = [
@@ -22,7 +25,8 @@ const routes: Routes = [
       { path: 'userinfo', component: UserInfoComponent },
       { path: 'usermedia', component: UserMediaComponent },
       { path: 'usertweets', component: UserTweetsComponent },
-      { path: 'members', component: MembersComponent },
+      { path: 'members', component: MembersComponent, resolve: {users: MemberListResolver } },
+      { path: 'members/:id', component: MemberDetailComponent, resolve: {user: MemberDetailResolver} },
     ]
   },
   { path: '**', redirectTo: '', pathMatch: 'full' },

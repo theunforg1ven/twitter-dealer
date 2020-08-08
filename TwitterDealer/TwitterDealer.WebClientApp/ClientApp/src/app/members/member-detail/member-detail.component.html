@@ -1,1 +1,56 @@
-<p>member-detail works!</p>
+<div class="container mt-5">
+    <div class="row">
+        <h1>{{user.username}}</h1>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="card">
+                <img class="card-img-top img-thumbnail" src="{{user.photoUrl}}" alt="{{user.username}}">
+                <div class="card-body">
+                    <div>
+                        <strong>Gender:</strong>
+                        <p>{{user.gender}}</p>
+                    </div>
+                    <div>
+                        <strong>Last active:</strong>
+                        <p>{{user.lastActive}}</p>
+                    </div>
+                    <div>
+                        <strong>Member since:</strong>
+                        <p>{{user.created}}</p>
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <button class="btn btn-outline-primary mr-1">Message</button>
+                    <button class="btn btn-outline-primary mr-1">Block</button>
+                    <button class="btn btn-outline-primary">Mute</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="tab-panel">
+                <tabset class="member-tabset">
+                    <tab heading="About {{user?.username}}">
+                        <h5>Likes putted: </h5>
+                        <h5>Likes gained: </h5>
+                    </tab>
+                    <tab heading="Saved threads">
+                        <h5>Likes putted: </h5>
+                        <h5>Likes gained: </h5>
+                    </tab>
+                    <tab heading="Saved tweets">
+                        <h5>Likes putted: </h5>
+                        <h5>Likes gained: </h5>
+                    </tab>
+                    <tab heading="Likes">
+                        <h4>Likes putted: </h4>
+                        <h4>Likes gained: </h4>
+                    </tab>
+                    <tab heading="Photos">
+                        <ngx-gallery [options]="galleryOptions" [images]="galleryImages"  class="ngx-gallery"></ngx-gallery>
+                    </tab>
+                </tabset>
+            </div>
+        </div>
+    </div>
+</div>

@@ -23,6 +23,10 @@ import { MembersComponent } from './members/members.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { MemberDetailResolver } from './resolvers/member-detail.resolver';
+import { MemberListResolver } from './resolvers/member-list.resolver';
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 
 export function tokenGetter(): string {
   return localStorage.getItem('token');
@@ -49,8 +53,10 @@ export function tokenGetter(): string {
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     FormsModule,
+    NgxGalleryModule,
     HttpClientModule,
     BsDropdownModule.forRoot(),
+    TabsModule.forRoot(),
     JwtModule.forRoot({
       config: {
         tokenGetter,
@@ -63,7 +69,9 @@ export function tokenGetter(): string {
     AuthService,
     ErrorInterceptorProvider,
     AuthGuard,
-    UserService
+    UserService,
+    MemberDetailResolver,
+    MemberListResolver
   ],
   bootstrap: [AppComponent]
 })
