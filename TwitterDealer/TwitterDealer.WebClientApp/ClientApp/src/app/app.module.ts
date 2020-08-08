@@ -1,13 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { AuthService } from './services/auth.service';
+import { UserService } from './services/user.service';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
@@ -20,6 +20,13 @@ import { UserMediaComponent } from './user-media/user-media.component';
 import { UserInfoComponent } from './user-info/user-info.component';
 import { AuthGuard } from './guards/auth.guard';
 import { MembersComponent } from './members/members.component';
+import { JwtModule } from '@auth0/angular-jwt';
+import { MemberListComponent } from './members/member-list/member-list.component';
+import { MemberDetailComponent } from './members/member-detail/member-detail.component';
+
+export function tokenGetter(): string {
+  return localStorage.getItem('token');
+}
 
 @NgModule({
   declarations: [
@@ -32,7 +39,9 @@ import { MembersComponent } from './members/members.component';
     UserTweetsComponent,
     UserMediaComponent,
     UserInfoComponent,
-    MembersComponent
+    MembersComponent,
+    MemberListComponent,
+    MemberDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,12 +50,20 @@ import { MembersComponent } from './members/members.component';
     ToastrModule.forRoot(),
     FormsModule,
     HttpClientModule,
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter,
+        allowedDomains: ['localhost:44320'],
+        disallowedRoutes: ['localhost:44320/api/auth']
+      }
+    })
   ],
   providers: [
     AuthService,
     ErrorInterceptorProvider,
-    AuthGuard
+    AuthGuard,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

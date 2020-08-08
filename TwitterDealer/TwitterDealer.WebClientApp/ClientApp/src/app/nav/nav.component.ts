@@ -20,14 +20,9 @@ export class NavComponent implements OnInit {
 
   login(): void {
     this.authService.login(this.model).subscribe(next => {
-      this.toastr.success('Welcome back', 'Logged in successfully', {
-       positionClass: 'toast-bottom-right'
-       });
-
+      this.toastr.success('Welcome back', 'Logged in successfully', { positionClass: 'toast-bottom-right' });
      }, error => {
-       this.toastr.error(error, 'Error ocurred', {
-         positionClass: 'toast-bottom-right'
-       });
+       this.toastr.error(error, 'Error ocurred', {positionClass: 'toast-bottom-right' });
      }, () => {
       this.router.navigate(['/threadmessages']);
     });
@@ -39,9 +34,7 @@ export class NavComponent implements OnInit {
 
   logout(): void {
     localStorage.removeItem('token');
-    this.toastr.info('Logged out', 'Information', {
-      positionClass: 'toast-bottom-right'
-    });
+    this.toastr.info('Logged out', 'Information', { positionClass: 'toast-bottom-right' });
     this.router.navigate(['/home']);
   }
 
