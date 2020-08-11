@@ -1,1 +1,20 @@
-<p>thread-messages works!</p>
+<div class="row justify-content-center align-items-center h-100">
+    <div class="col-md-6 mt-5">
+        <form  #form="ngForm" autocomplete="off" (submit)="onGetAllTweets(link)">
+            <div class="md-form">
+              <input  placeholder="Enter thread link" name="threadlink" #linkname="ngModel" [(ngModel)]="link"
+              type="text" class="form-control"  required minlength="4">
+              <button  class="btn btn-primary mt-3 flex "  type="submit" >Get thread</button>
+            </div>
+          </form>
+
+          <div *ngIf="allThread != undefined" class="mt-3">
+            <ul>
+              <li>
+                <p>{{allThread.tweetText}}</p>
+              </li>
+            </ul>
+          </div>
+    </div> 
+</div> 
+
