@@ -20,16 +20,21 @@ export class ThreadMessagesComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onGetAllTweets(link: string){
+  onGetAllTweets(link: string): void{
     this.tweetsService.getFullThread(link).subscribe((res: StatusTweet) => {
       this.allThread = null;
       this.allThread = res;
       console.log(res);
-      this.toastr.success('All is ok', 'Info', { positionClass: 'toast-bottom-right' });
+      //this.toastr.success('All is ok', 'Info', { positionClass: 'toast-bottom-right' });
     }, error => {
       this.toastr.error(error, 'Error ocurred', { positionClass: 'toast-bottom-right' });
     }
     );
   }
 
+
+  onClear(): void {
+    this.link = '';
+    this.allThread = null;
+  }
 }
