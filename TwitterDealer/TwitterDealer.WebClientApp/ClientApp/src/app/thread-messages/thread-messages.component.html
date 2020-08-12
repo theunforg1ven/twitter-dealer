@@ -1,4 +1,4 @@
-<div class="row justify-content-center align-items-center h-100">
+<div class="inputValues row justify-content-center align-items-center h-100">
     <div class="col-md-6 mt-5">
         <form  #form="ngForm" autocomplete="off" (submit)="onGetAllTweets(link)">
             <div class="md-form">
@@ -9,25 +9,39 @@
             </div>
           </form>
     </div> 
-    <div *ngIf="allThread != undefined" class="mt-3">
-      <p>{{allThread.tweetText}}</p>
-      <div *ngIf="allThread.replies != null" >
-        <ul *ngFor="let reply of allThread.replies">
-          <li>
-            <div class="card border-primary mb-3 mx-auto">
-              <div class="card-header">@{{reply.userScreenName}}</div>
-              <div class="card-body">
-                <h4 class="card-title">{{reply.userName}}</h4>
-                <p class="card-text">{{reply.tweetText}}</p>
-                <div *ngIf="reply.mediaUrl != null">
-                  <img src="{{reply.mediaUrl[0].mediaUrl}}" width="100%" height="100%" alt="User picture"> 
-                </div>
-              </div>
-            </div>
-            <p></p>
-          </li>
-        </ul>
+</div> 
+<div *ngIf="allThread != undefined" class="outputValues mt-3">
+  <div class="card border-primary mb-3 mx-auto">
+    <div class="card-header">@{{allThread.userScreenName}}</div>
+    <div class="card-body">
+      <h4 class="card-title">{{allThread.userName}}</h4>
+      <p class="card-text">{{allThread.tweetText}}</p>
+      <div *ngIf="allThread.mediaUrl != null">
+        <img src="{{allThread.mediaUrl[0].mediaUrl}}" width="100%" height="100%" alt="User picture"> 
       </div>
     </div>
-</div> 
+  </div>
+  <div *ngIf="allThread.replies != null" >
+    <ng-container *ngTemplateOutlet="replyThread; context: { $implicit: allThread.replies }"></ng-container>
+    <ng-template #replyThread let-childReplies>
+      <ul>
+        <li *ngFor="let reply of childReplies">
+          <div class="card border-primary mb-3 mx-auto">
+            <div class="card-header">@{{reply.userScreenName}}</div>
+            <div class="card-body">
+              <h4 class="card-title">{{reply.userName}}</h4>
+              <p class="card-text">{{reply.tweetText}}</p>
+              <div *ngIf="reply.mediaUrl != null">
+                <img src="{{reply.mediaUrl[0].mediaUrl}}" width="100%" height="100%" alt="User picture"> 
+              </div>
+            </div>
+          </div>
+          <ng-container *ngIf="reply.replies">
+            <ng-container *ngTemplateOutlet="replyThread; context: { $implicit: reply.replies }"></ng-container>
+          </ng-container>
+        </li>
+      </ul>
+    </ng-template>
+  </div>
+</div>
 

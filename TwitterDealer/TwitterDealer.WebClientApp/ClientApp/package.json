@@ -21,6 +21,7 @@
     "@angular/router": "~10.0.2",
     "@auth0/angular-jwt": "^5.0.1",
     "@kolkov/ngx-gallery": "^1.2.3",
+    "@swimlane/ngx-graph": "^7.1.1",
     "argon-design-system-free": "^1.2.0",
     "bootstrap": "^4.5.0",
     "bootswatch": "^4.5.0",

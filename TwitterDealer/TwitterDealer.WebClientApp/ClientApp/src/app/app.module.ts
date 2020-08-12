@@ -29,6 +29,9 @@ import { MemberDetailResolver } from './resolvers/member-detail.resolver';
 import { MemberListResolver } from './resolvers/member-list.resolver';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 
+
+
+
 export function tokenGetter(): string {
   return localStorage.getItem('token');
 }
@@ -64,7 +67,7 @@ export function tokenGetter(): string {
         allowedDomains: ['localhost:44320'],
         disallowedRoutes: ['localhost:44320/api/auth']
       }
-    })
+    }),
   ],
   providers: [
     AuthService,
