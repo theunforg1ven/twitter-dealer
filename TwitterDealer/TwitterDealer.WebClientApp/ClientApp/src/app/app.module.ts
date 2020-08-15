@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
+import { GojsAngularModule } from 'gojs-angular';
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -28,6 +29,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { MemberDetailResolver } from './resolvers/member-detail.resolver';
 import { MemberListResolver } from './resolvers/member-list.resolver';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import { ThreadTreeComponent } from './thread-messages/thread-tree/thread-tree.component';
 
 
 
@@ -50,6 +52,7 @@ export function tokenGetter(): string {
     MembersComponent,
     MemberListComponent,
     MemberDetailComponent,
+    ThreadTreeComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,6 +71,7 @@ export function tokenGetter(): string {
         disallowedRoutes: ['localhost:44320/api/auth']
       }
     }),
+    GojsAngularModule
   ],
   providers: [
     AuthService,
