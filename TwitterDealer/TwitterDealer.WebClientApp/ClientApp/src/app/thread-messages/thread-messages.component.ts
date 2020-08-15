@@ -12,29 +12,30 @@ import { StatusTweet } from '../models/statusTweet';
 export class ThreadMessagesComponent implements OnInit {
   public link: string;
   public allThread: StatusTweet;
+  public jsonArr: any = {};
 
   constructor(private tweetsService: TweetsService,
               private toastr: ToastrService,
               private router: Router) { }
 
   ngOnInit(): void {
+    this.jsonArr = null;
   }
 
   onGetAllTweets(link: string): void{
     this.tweetsService.getFullThread(link).subscribe((res: StatusTweet) => {
       this.allThread = null;
       this.allThread = res;
-      console.log(res);
-      //this.toastr.success('All is ok', 'Info', { positionClass: 'toast-bottom-right' });
+      this.jsonArr = JSON.parse(JSON.stringify(this.allThread));
     }, error => {
       this.toastr.error(error, 'Error ocurred', { positionClass: 'toast-bottom-right' });
     }
     );
   }
 
-
   onClear(): void {
     this.link = '';
     this.allThread = null;
   }
+
 }

@@ -44,7 +44,7 @@
     </ng-template>
   </div>
 </div>
-<div> 
-  <app-thread-tree></app-thread-tree>
+<div *ngIf="jsonArr != null"> 
+  <tree-diagram [data]="jsonArr"></tree-diagram>
 </div>
 
