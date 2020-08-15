@@ -1,6 +1,7 @@
 @import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 @import '../node_modules/bootswatch/dist/lux/bootstrap.min.css';
 @import '../node_modules/font-awesome/css/font-awesome.min.css';
+@import "~@mondal/org-chart/_theming.scss";
 
 /* Tabset styles */
 
@@ -49,3 +50,32 @@
     border-top: 1px solid #eee;
     padding: 15px 0;
   }
+
+/* Org chart styles */
+  
+#orgChartId .org-chart-entity-box {
+  align-items: center ;
+  border: 1px solid black ;
+  background-color: white ;
+  border-radius: 3px;
+  color: black;
+  box-shadow: 0 .5rem 1rem #777!important;
+}
+
+  
+#orgChartId .org-chart-entity-name{
+  color: black;
+}
+
+#orgChartId .org-chart-entity-type {
+  color: black;
+}
+
+#orgChartId .org-chart-entity-border {
+  border-left: 1px solid black;
+  border-top: 1px solid black;
+}
+
+#orgChartId .org-chart-entity-connector {
+  height: 2em;
+}

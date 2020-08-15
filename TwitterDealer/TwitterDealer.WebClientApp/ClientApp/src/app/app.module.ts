@@ -28,7 +28,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { MemberDetailResolver } from './resolvers/member-detail.resolver';
 import { MemberListResolver } from './resolvers/member-list.resolver';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
-import { TreeDiagramModule } from 'angular2-tree-diagram';
+import { OrgChartModule } from 'angular-org-chart';
 
 export function tokenGetter(): string {
   return localStorage.getItem('token');
@@ -57,6 +57,7 @@ export function tokenGetter(): string {
     FormsModule,
     NgxGalleryModule,
     HttpClientModule,
+    OrgChartModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     JwtModule.forRoot({
@@ -66,7 +67,6 @@ export function tokenGetter(): string {
         disallowedRoutes: ['localhost:44320/api/auth']
       }
     }),
-    TreeDiagramModule
   ],
   providers: [
     AuthService,
