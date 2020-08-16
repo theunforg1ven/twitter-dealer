@@ -16,10 +16,10 @@ export class ThreadMessagesComponent implements OnInit {
   public jsonArr: StatusTweet;
   //public orgData: OrgData = {};
 
-  orgData: OrgData= {
+  orgData: OrgData = {
     isFavourite: true,
     retweetCount: 10,
-    tweetText: 'fgjhghjfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+    tweetText: 'fgjhghjfffff',
     language: 'fgj',
     mediaUrl: null,
     isPossiblySensitive: false,
@@ -32,7 +32,7 @@ export class ThreadMessagesComponent implements OnInit {
       {
         isFavourite: true,
         retweetCount: 10,
-        tweetText: 'fgjhghjfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+        tweetText: 'fgjhgh',
         language: 'fgj',
         mediaUrl: null,
         isPossiblySensitive: false,
@@ -51,7 +51,6 @@ export class ThreadMessagesComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
-   // this.jsonArr = null;
   }
 
   onGetAllTweets(link: string): void{
@@ -59,10 +58,7 @@ export class ThreadMessagesComponent implements OnInit {
       this.allThread = null;
       this.allThread = res;
       this.orgData = this.allThread;
-      this.jsonArr = JSON.parse(JSON.stringify(this.allThread));
-      console.log(this.allThread);
-      console.log(this.orgData);
-      
+      this.jsonArr = JSON.parse(JSON.stringify(this.allThread));    
     }, error => {
       this.toastr.error(error, 'Error ocurred', { positionClass: 'toast-bottom-right' });
     }
@@ -73,16 +69,4 @@ export class ThreadMessagesComponent implements OnInit {
     this.link = '';
     this.allThread = null;
   }
-
-  getArrayObject(allThread: StatusTweet) {
-    if (allThread.replies === undefined) {
-      console.log('Array is undefined');
-      console.log(allThread.replies);
-      console.log(this.allThread.replies);
-      return;
-    }
-    let newThread: OrgData;
-
-  }
-
 }
