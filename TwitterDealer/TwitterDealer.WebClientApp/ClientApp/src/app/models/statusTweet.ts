@@ -1,16 +1,16 @@
 import { BaseUserMedia } from './baseUserMedia';
 
 export interface StatusTweet {
-    IsFavourite: boolean;
-    RetweetCount: number;
-    TweetText: string;
-    Language: string;
-    MediaUrl: BaseUserMedia[];
-    IsPossiblySensitive?: boolean;
-    Url: string;
-    FavoriteCount: number;
-    Created?: Date;
-    Username: string;
-    UserScreenName: string;
-    Replies: StatusTweet[];
+    isFavourite: boolean;
+    retweetCount: number;
+    tweetText: string;
+    language: string;
+    mediaUrl: BaseUserMedia[];
+    isPossiblySensitive?: boolean;
+    url: string;
+    favoriteCount: number;
+    created?: Date;
+    userName: string;
+    userScreenName: string;
+    replies: StatusTweet[];
 }

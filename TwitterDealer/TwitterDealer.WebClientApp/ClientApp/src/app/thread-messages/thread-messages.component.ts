@@ -14,57 +14,36 @@ export class ThreadMessagesComponent implements OnInit {
   public link: string;
   public allThread: StatusTweet;
   public jsonArr: StatusTweet;
-  //public orgData: OrgData = null;
+  //public orgData: OrgData = {};
 
   orgData: OrgData= {
-    name: "Iron Man",
-    type: 'CEO',
-    children: [
-        {
-            name: "Captain America",
-            type: 'VP',
-            children: [
-                {
-                    name: "Hawkeye",
-                    type: 'manager',
-                    children: []
-                },
-                {
-                    name: "Antman",
-                    type: 'Manager',
-                    children: []
-                }
-            ]
-        },
-        {
-            name: "Black Widow",
-            type: 'VP',
-            children: [
-                {
-                    name: "Hulk",
-                    type: 'manager',
-                    children: [
-                        {
-                            name: "Spiderman",
-                            type: 'Intern',
-                            children: []
-                        }
-                    ]
-                },
-                {
-                    name: "Thor",
-                    type: 'Manager',
-                    children: [
-                        {
-                            name: "Loki",
-                            type: 'Team Lead',
-                            children: []
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
+    isFavourite: true,
+    retweetCount: 10,
+    tweetText: 'fgjhghjfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+    language: 'fgj',
+    mediaUrl: null,
+    isPossiblySensitive: false,
+    url: 'string',
+    favoriteCount: 10,
+    created: null,
+    userName: 'string',
+    userScreenName: 'string',
+    replies: [
+      {
+        isFavourite: true,
+        retweetCount: 10,
+        tweetText: 'fgjhghjfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+        language: 'fgj',
+        mediaUrl: null,
+        isPossiblySensitive: false,
+        url: 'string',
+        favoriteCount: 10,
+        created: null,
+        userName: 'string',
+        userScreenName: 'string',
+        replies: []
+      }
+    ],
   };
 
   constructor(private tweetsService: TweetsService,
@@ -79,9 +58,10 @@ export class ThreadMessagesComponent implements OnInit {
     this.tweetsService.getFullThread(link).subscribe((res: StatusTweet) => {
       this.allThread = null;
       this.allThread = res;
-      //this.orgData = this.allThread;
+      this.orgData = this.allThread;
       this.jsonArr = JSON.parse(JSON.stringify(this.allThread));
       console.log(this.allThread);
+      console.log(this.orgData);
       
     }, error => {
       this.toastr.error(error, 'Error ocurred', { positionClass: 'toast-bottom-right' });
@@ -92,6 +72,17 @@ export class ThreadMessagesComponent implements OnInit {
   onClear(): void {
     this.link = '';
     this.allThread = null;
+  }
+
+  getArrayObject(allThread: StatusTweet) {
+    if (allThread.replies === undefined) {
+      console.log('Array is undefined');
+      console.log(allThread.replies);
+      console.log(this.allThread.replies);
+      return;
+    }
+    let newThread: OrgData;
+
   }
 
 }
