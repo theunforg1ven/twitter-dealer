@@ -14,43 +14,15 @@ export class ThreadMessagesComponent implements OnInit {
   public link: string;
   public allThread: StatusTweet;
   public jsonArr: StatusTweet;
-  //public orgData: OrgData = {};
-
-  orgData: OrgData = {
-    isFavourite: true,
-    retweetCount: 10,
-    tweetText: 'fgjhghjfffff',
-    language: 'fgj',
-    mediaUrl: null,
-    isPossiblySensitive: false,
-    url: 'string',
-    favoriteCount: 10,
-    created: null,
-    userName: 'string',
-    userScreenName: 'string',
-    replies: [
-      {
-        isFavourite: true,
-        retweetCount: 10,
-        tweetText: 'fgjhgh',
-        language: 'fgj',
-        mediaUrl: null,
-        isPossiblySensitive: false,
-        url: 'string',
-        favoriteCount: 10,
-        created: null,
-        userName: 'string',
-        userScreenName: 'string',
-        replies: []
-      }
-    ],
-  };
+  public showReplies: boolean;
+  public orgData: OrgData;
 
   constructor(private tweetsService: TweetsService,
               private toastr: ToastrService,
               private router: Router) { }
 
   ngOnInit(): void {
+    this.showReplies = false;
   }
 
   onGetAllTweets(link: string): void{
@@ -68,5 +40,10 @@ export class ThreadMessagesComponent implements OnInit {
   onClear(): void {
     this.link = '';
     this.allThread = null;
+    this.orgData = null;
+  }
+
+  onShowReplies(): void {
+    this.showReplies = !this.showReplies;
   }
 }
