@@ -32,7 +32,7 @@
       <p class="card-text">Amount of likes: {{allThread.favoriteCount}}</p>
       <p class="card-text">Is Possibly Sensetive: {{allThread.isPossiblySensitive}}</p>
       <p class="card-text">Tweet language: {{allThread.language}}</p>
-      <p class="card-text">Tweet date: {{allThread.created?.toLocaleString()}}</p>
+      <p class="card-text">Tweet date: {{allThread.created | date : 'yyyy-MM-dd, H:mm:ss'}}</p>
       <a url="{{allThread.url}}" class="card-text">Tweet url: {{allThread.url}}</a>
       <div class="card-text" *ngIf="allThread.mediaUrl != null">
         <div class="card-text" *ngFor="let img of allThread.mediaUrl">
@@ -62,7 +62,7 @@
                   <p class="card-text">Amount of likes: {{reply.favoriteCount}}</p>
                   <p class="card-text">Is Possibly Sensetive: {{reply.isPossiblySensitive}}</p>
                   <p class="card-text">Tweet language: {{reply.language}}</p>
-                  <p class="card-text">Tweet date: {{reply.created?.toLocaleString()}}</p>
+                  <p class="card-text">Tweet date: {{reply.created | date : 'yyyy-MM-dd, H:mm:ss'}}</p>
                   <a url="{{reply.url}}" class="card-text">Tweet url: {{reply.url}}</a>
                   <div *ngIf="reply.mediaUrl != null ">
                     <div *ngFor="let img of reply.mediaUrl">
