@@ -14,6 +14,10 @@ export class TweetsService {
   constructor(private http: HttpClient) { }
 
   getFullThread(link: string): Observable<StatusTweet> {
-    return this.http.get<StatusTweet>(this.rootUrl + 'twitterdata/TwitterData?tweetUrl=' + link);
+    return this.http.get<StatusTweet>(this.rootUrl + 'twitterdata/twitterdata?tweetUrl=' + link);
+  }
+
+  getUserThread(link: string): Observable<StatusTweet> {
+    return this.http.get<StatusTweet>(this.rootUrl + 'twitterthread/gettwitterthread?tweetUrl=' + link);
   }
 }

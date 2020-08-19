@@ -28,7 +28,7 @@ namespace TwitterDealer.Controllers
 		}
 
 		[HttpGet]
-		[Route("GetTwitterThread")]
+		[Route("gettwitterthread")]
 		public async Task<StatusTweet> GetUserTweetsAsync(string tweetUrl)
 		{
 			var infoResult = await _tweetThreadService.GetUserThreadAsync(tweetUrl);

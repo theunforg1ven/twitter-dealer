@@ -13,7 +13,6 @@ import { OrgData } from 'angular-org-chart/src/app/modules/org-chart/orgData';
 export class ThreadMessagesComponent implements OnInit {
   public link: string;
   public allThread: StatusTweet;
-  public jsonArr: StatusTweet;
   public showReplies: boolean;
   public orgData: OrgData;
 
@@ -30,7 +29,6 @@ export class ThreadMessagesComponent implements OnInit {
       this.allThread = null;
       this.allThread = res;
       this.orgData = this.allThread;
-      this.jsonArr = JSON.parse(JSON.stringify(this.allThread));    
     }, error => {
       this.toastr.error(error, 'Error ocurred', { positionClass: 'toast-bottom-right' });
     }

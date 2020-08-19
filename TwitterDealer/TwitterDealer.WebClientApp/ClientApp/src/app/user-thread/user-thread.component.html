@@ -1,1 +1,86 @@
-<p>user-thread works!</p>
+<div class="inputValues row justify-content-center align-items-center h-100">
+    <div class="col-md-6 mt-5">
+        <form  #form="ngForm" autocomplete="off" (submit)="onGetAllTweets(link)">
+            <div class="md-form">
+              <input  placeholder="Enter user thread link" name="threadlink" #linkname="ngModel" [(ngModel)]="link"
+              type="text" class="form-control"  required minlength="4">
+              <button  class="btn btn-outline-primary mt-3 mr-1 flex "  type="submit" >Get user thread</button>
+              <button type="button" class="btn btn-outline-primary mt-3 flex" (click)="onClear()">Clear</button>
+            </div>
+          </form>
+    </div> 
+</div> 
+
+
+<div class="m-4">
+  <angular-org-chart id="orgChartId" [data]="orgData"></angular-org-chart>
+</div>
+
+<div *ngIf="allThread != undefined" class="text-center">
+  <button type="button" class="btn btn-outline-primary m-3 text-center" 
+            (click)="onShowReplies()">Show full replies info</button>
+</div>
+
+<div *ngIf="allThread != undefined && showReplies" class="outputValues mt-3">
+  <div class="card border-primary mb-3 mx-auto">
+    <div class="card-header">@{{allThread.userScreenName}}</div>
+    <div class="card-body">
+      <h4 class="card-title">{{allThread.userName}}</h4>
+      <p class="card-text">{{allThread.tweetText}}</p>
+      <p class="card-text">Amount of replies: {{allThread.replies.length}}</p>
+      <p class="card-text">Amount of retweets: {{allThread.retweetCount}}</p>
+      <p class="card-text">Amount of likes: {{allThread.favoriteCount}}</p>
+      <p class="card-text">Is Possibly Sensetive: {{allThread.isPossiblySensitive}}</p>
+      <p class="card-text">Tweet language: {{allThread.language}}</p>
+      <p class="card-text">Tweet date: {{allThread.created | date : 'yyyy-MM-dd, H:mm:ss'}}</p>
+      <a url="{{allThread.url}}" class="card-text">Tweet url: {{allThread.url}}</a>
+      <div class="card-text" *ngIf="allThread.mediaUrl != null">
+        <div class="card-text" *ngFor="let img of allThread.mediaUrl">
+          <img class="card-text" src="{{img.mediaUrl}}" width="100%" height="100%" alt="User picture"> 
+        </div>
+      </div>
+      <div *ngIf="allThread.mediaUrl != null && allThread.mediaUrl[0]?.mediaType == 1">
+        <div *ngFor="let video of allThread.mediaUrl">
+          <video source="{{video.mediaUrl}}" width="100%" height="100%" alt="User video"> </video>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div *ngIf="allThread.replies != null && showReplies" >
+    <ng-container *ngTemplateOutlet="replyThread; context: { $implicit: allThread.replies }"></ng-container>
+    <ng-template #replyThread let-childReplies>
+      <ul>
+          <li *ngFor="let reply of childReplies">
+            <div class="card mb-3 border-primary mx-auto">
+              <div class="card-header">@{{reply.userScreenName}}</div>
+                <div class="card-body">
+                  <h4 class="card-title">{{reply.userName}}</h4>
+                  <p class="card-text">{{reply.tweetText}}</p>
+                  <p class="card-text">Amount of replies: {{reply.replies.length}}</p>
+                  <p class="card-text">Amount of retweets: {{reply.retweetCount}}</p>
+                  <p class="card-text">Amount of likes: {{reply.favoriteCount}}</p>
+                  <p class="card-text">Is Possibly Sensetive: {{reply.isPossiblySensitive}}</p>
+                  <p class="card-text">Tweet language: {{reply.language}}</p>
+                  <p class="card-text">Tweet date: {{reply.created | date : 'yyyy-MM-dd, H:mm:ss'}}</p>
+                  <a url="{{reply.url}}" class="card-text">Tweet url: {{reply.url}}</a>
+                  <div *ngIf="reply.mediaUrl != null ">
+                    <div *ngFor="let img of reply.mediaUrl">
+                      <img src="{{img.mediaUrl}}" width="100%" height="100%" alt="User picture"> 
+                    </div>
+                  </div>
+                  <div *ngIf="reply.mediaUrl != null && reply.mediaUrl[0]?.mediaType == 1">
+                    <div *ngFor="let video of reply.mediaUrl">
+                      <video source="{{video.mediaUrl}}" width="100%" height="100%" alt="User video"> </video>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <ng-container *ngIf="reply.replies">
+              <ng-container *ngTemplateOutlet="replyThread; context: { $implicit: reply.replies }"></ng-container>
+            </ng-container>
+          </li>
+      </ul>
+    </ng-template>
+  </div>
+</div>
