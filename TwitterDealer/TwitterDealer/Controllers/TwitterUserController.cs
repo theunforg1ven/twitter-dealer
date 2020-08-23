@@ -20,7 +20,7 @@ namespace TwitterDealer.Controllers
 		}
 
 		[HttpGet]
-		[Route("TwitterUserProfile")]
+		[Route("twitteruserprofile")]
 		public Task<MainUserModel> GetUserInfoAsync(string screenName)
 		{
 			var infoResult =  _userService.GetUserInfoAsync(screenName);
@@ -29,7 +29,7 @@ namespace TwitterDealer.Controllers
 		}
 
 		[HttpGet]
-		[Route("TwitterUserTweets")]
+		[Route("twitterusertweets")]
 		public Task<IEnumerable<StatusTweet>> GetUserTweetsAsync(string screenName)
 		{
 			var infoResult = _userService.GetUserTweetsAsync(screenName);
@@ -38,7 +38,7 @@ namespace TwitterDealer.Controllers
 		}
 
 		[HttpGet]
-		[Route("TwitterUserMedia")]
+		[Route("twitterusermedia")]
 		public async Task<IEnumerable<UserMedia>> GetUserMediaAsync(string screenName, int mediaCount)
 		{
 			var media = await _userService.GetUserMediaAsync(screenName, mediaCount);
