@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { StatusTweet } from '../models/statusTweet';
+import { UserMedia } from '../models/userMedia';
 
 @Injectable({
   providedIn: 'root'
@@ -19,5 +20,13 @@ export class TweetsService {
 
   getUserThread(link: string): Observable<StatusTweet> {
     return this.http.get<StatusTweet>(this.rootUrl + 'twitterthread/gettwitterthread?tweetUrl=' + link);
+  }
+
+  getUserTweets(link: string): Observable<StatusTweet[]> {
+    return this.http.get<StatusTweet[]>(this.rootUrl + 'twitteruser/twitterusertweets?screenName=' + link);
+  }
+
+  getUserMedia(link: string): Observable<UserMedia[]> {
+    return this.http.get<UserMedia[]>(this.rootUrl + 'twitteruser/twitterusermedia?screenName=' + link);
   }
 }

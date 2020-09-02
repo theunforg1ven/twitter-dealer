@@ -31,7 +31,7 @@ export class UserThreadComponent implements OnInit {
       this.orgData = this.allThread;
     }, error => {
       this.toastr.error(error, 'Error ocurred', { positionClass: 'toast-bottom-right' });
-    }
+      }
     );
   }
 
