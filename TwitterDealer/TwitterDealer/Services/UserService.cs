@@ -60,7 +60,6 @@ namespace TwitterDealer.Services
 
 		public async Task<IEnumerable<StatusTweet>> GetUserTweetsAsync(string screenName)
 		{
-			// TODO: ExcludeReplies = change because of boolean value from frontend
 			var currentTweets = await _twitterService.ListTweetsOnUserTimelineAsync(new ListTweetsOnUserTimelineOptions
 			{
 				ScreenName = screenName,
