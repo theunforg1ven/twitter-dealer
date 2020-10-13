@@ -1,1 +1,52 @@
-<p>user-info works!</p>
+<div class="inputValues row justify-content-center align-items-center h-100">
+    <div class="col-md-6 mt-5">
+        <form  #form="ngForm" autocomplete="off" (submit)="onGetUserData(link)">
+            <div class="md-form ">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">@</span>
+                    </div>
+                    <input  placeholder="Enter user screen name" name="linkname" #linkname="ngModel" [(ngModel)]="link"
+              type="text" class="form-control"  required minlength="4">
+                </div> 
+              <button  class="btn btn-outline-primary mt-3 mr-1 flex "  type="submit" >Get user data</button>
+              <button type="button" class="btn btn-outline-primary mt-3 flex" (click)="onClear()">Clear</button>
+            </div>
+          </form>
+    </div> 
+</div> 
+
+<div class="mt-3 outputValues"  *ngIf="userData != undefined">
+    <div class="mainInfo">
+        <img src="{{userData.imageUrl}}" alt="User picture"> 
+    </div>
+    
+    <p>Twitter ID of user is <strong>{{userData.userTwId}}</strong></p>
+    <p>User have <strong>{{userData.followersCount}}</strong> followers</p>
+    <p>User twitter name is <strong>{{userData.userTwName}}</strong></p>
+    <p>User external url is <strong>{{userData.url}}</strong></p>
+    <p>User has protected account? <strong>{{userData.isProtected }}</strong></p>
+    <p>User twitter screen name is <strong>@{{userData.screenName}}</strong></p>
+    <p>User location is <strong>{{userData.location}}</strong></p>
+    <p>User has <strong>{{userData.friendsCount}}</strong> twitter friends</p>
+    <p>User profile background color is </p>
+    <div  class="square m-1" [ngStyle]="{'color': profileBackgroundColor, 'font-size': '24px', 'font-weight': 'bold'}">
+        {{userData.profileBackgroundColor}}
+    </div>
+    <p>User profile text color is </p>
+    <div class="square m-1" [ngStyle]="{'color': profileTextColor, 'font-size': '24px', 'font-weight': 'bold'}">
+        {{userData.profileTextColor}}
+    </div>
+    <p>User profile link color is </p>
+    <div class="square m-1" [ngStyle]="{'color': profileLinkColor, 'font-size': '24px', 'font-weight': 'bold'}">
+        {{userData.profileLinkColor}}
+    </div>
+
+    <p>User has <strong>{{userData.favouritesCount}}</strong> favourites</p>
+    <p>User has <strong>{{userData.listedCount}}</strong> lists</p>
+    <p>Users has <strong>{{userData.statusesCount}}</strong> statuses</p>
+    <p>User profile verified? <strong>{{userData.isVerified }}</strong></p>
+    <p>Is geo enabled in profile? <strong>{{userData.isGeoEnabled }}</strong></p>
+    <p>User language is <strong>{{userData.language}}</strong></p>
+    <p>User profile created at <strong>{{userData.createdDate | date : 'yyyy-MM-dd, H:mm:ss'}}</strong></p>
+</div>

@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { StatusTweet } from '../models/statusTweet';
 import { UserMedia } from '../models/userMedia';
+import { MainUserModel } from '../models/mainUserModel';
 
 @Injectable({
   providedIn: 'root'
@@ -28,5 +29,9 @@ export class TweetsService {
 
   getUserMedia(link: string): Observable<UserMedia[]> {
     return this.http.get<UserMedia[]>(this.rootUrl + 'twitteruser/twitterusermedia?screenName=' + link);
+  }
+
+  getUserInfo(link: string): Observable<MainUserModel> {
+    return this.http.get<MainUserModel>(this.rootUrl + 'twitteruser/twitteruserprofile?screenName=' + link);
   }
 }
