@@ -29,6 +29,7 @@ import { MemberDetailResolver } from './resolvers/member-detail.resolver';
 import { MemberListResolver } from './resolvers/member-list.resolver';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { OrgChartModule } from 'angular-org-chart';
+import { ChartsModule } from 'ng2-charts';
 
 export function tokenGetter(): string {
   return localStorage.getItem('token');
@@ -58,6 +59,7 @@ export function tokenGetter(): string {
     NgxGalleryModule,
     HttpClientModule,
     OrgChartModule,
+    ChartsModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     JwtModule.forRoot({
