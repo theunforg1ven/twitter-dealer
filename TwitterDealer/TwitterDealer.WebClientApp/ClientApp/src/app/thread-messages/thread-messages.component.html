@@ -21,6 +21,23 @@
             (click)="onShowReplies()">Show full replies info</button>
 </div>
 
+<div class="container">
+  <div class="section-container"> 
+    <div class="cards">
+      <div class="card-deck">
+        <div class="card mb-3 shadow card-theme">
+          <div class="card-header card-header-theme">
+            <h5>Test chart naming</h5>
+          </div>
+          <div class="card-body">
+            <app-bar-chart></app-bar-chart>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div *ngIf="allThread != undefined && showReplies" class="outputValues mt-3">
   <div class="card border-primary mb-3 mx-auto">
     <div class="card-header">@{{allThread.userScreenName}}</div>

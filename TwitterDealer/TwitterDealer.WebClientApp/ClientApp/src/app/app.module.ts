@@ -30,6 +30,9 @@ import { MemberListResolver } from './resolvers/member-list.resolver';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { OrgChartModule } from 'angular-org-chart';
 import { ChartsModule } from 'ng2-charts';
+import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
+import { LineChartComponent } from './charts/line-chart/line-chart.component';
+import { PieChartComponent } from './charts/pie-chart/pie-chart.component';
 
 export function tokenGetter(): string {
   return localStorage.getItem('token');
@@ -49,6 +52,9 @@ export function tokenGetter(): string {
     MembersComponent,
     MemberListComponent,
     MemberDetailComponent,
+    BarChartComponent,
+    LineChartComponent,
+    PieChartComponent,
   ],
   imports: [
     BrowserModule,

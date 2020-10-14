@@ -96,3 +96,26 @@
   height: 2em;
   word-wrap:break-word !important;
 }
+
+/* Card styles styles */
+
+.card-theme {
+  background-color: #F3F3F3;
+  border: none;
+  border-radius: 2px;
+}
+
+.card-heading-theme {
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+  padding: 12px;
+}
+
+.card-body-theme {
+  background-color: #F3F3F3;
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+}
