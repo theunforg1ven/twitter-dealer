@@ -7,11 +7,11 @@ I tried to add a lot of useful features during site creation. You can watch list
 ## 📌Used
 During the development I used:
 
-* ♦️ ASP .NET Core Web API
-* ♦️ Entity Framework Core
-* ♦️ HTML/CSS
-* ♦️ Bootstrap/Bootswatch/Font Awesome
-* ♦️ JavaScript/TypeScript
+* ✔️ASP .NET Core Web API
+* ✔️Entity Framework Core
+* ✔️HTML/CSS
+* ✔️Bootstrap/Bootswatch/Font Awesome
+* ✔️JavaScript/TypeScript
 
 
 ## 📌Screenshots
