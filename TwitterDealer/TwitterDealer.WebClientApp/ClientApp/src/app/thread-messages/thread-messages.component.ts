@@ -16,6 +16,11 @@ export class ThreadMessagesComponent implements OnInit {
   public showReplies: boolean;
   public orgData: OrgData;
 
+  public userActivityCount: number;
+  public likesCount: number;
+  public retweetCount: number;
+  public userRepliesCount: number;
+
   constructor(private tweetsService: TweetsService,
               private toastr: ToastrService,
               private router: Router) { }
