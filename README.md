@@ -7,11 +7,11 @@ I tried to add a lot of useful features during site creation. You can watch list
 ## 📌Used
 During the development I used:
 
-✔️  ASP .NET Core Web API
-✔️  MS SQL/Entity Framework Core
-✔️  HTML/CSS
-✔️  Bootstrap/Bootswatch/Font Awesome
-✔️  JavaScript/TypeScript
+✔️  ASP .NET Core Web API<br/>
+✔️  MS SQL/Entity Framework Core<br/>
+✔️  HTML/CSS<br/>
+✔️  Bootstrap/Bootswatch/Font Awesome<br/>
+✔️  JavaScript/TypeScript<br/>
 
 Also, backend part was written using ASP .NET Core Web API and EF Core and frontend part was written as an Angular SPA application.
 
