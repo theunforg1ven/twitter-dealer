@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 const LINE_CHART_SAMPLE_DATA: any[] = [
   { data: [32, 14, 46, 23, 38, 56], label: 'Sentiment Analysis'},
@@ -13,6 +13,7 @@ const LINE_CHART_LABELS: string[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
   styleUrls: ['./line-chart.component.scss']
 })
 export class LineChartComponent implements OnInit {
+  @Input() inputData: any;
 
   lineChartData: any = LINE_CHART_SAMPLE_DATA;
   lineChartLabels: any = LINE_CHART_LABELS;
@@ -24,6 +25,20 @@ export class LineChartComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+   if (this.inputData !== null && this.inputData !== undefined){
+      this.parseChartData(this.inputData);
+    }
+  }
+
+  public parseChartData(res: any): void {
+    const data = res;
+    const allData = data.slice(0);
+    console.log(res);
+
+    const formattedValues = allData.reduce((r, e) => {
+      r.push([e.placed, e.total]);
+      return r;
+    }, []);
   }
 
 }

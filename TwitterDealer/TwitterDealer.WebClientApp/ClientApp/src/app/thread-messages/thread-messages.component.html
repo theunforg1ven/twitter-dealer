@@ -30,7 +30,7 @@
             <h5>User activity</h5>
           </div>
           <div class="card-body">
-            <app-bar-chart></app-bar-chart>
+            <app-bar-chart [inputData]='userActivityCount'></app-bar-chart>
           </div>
         </div>
         <div class="card mb-3 shadow card-theme">
@@ -38,7 +38,7 @@
             <h5>Likes count</h5>
           </div>
           <div class="card-body">
-            <app-pie-chart></app-pie-chart>
+            <app-pie-chart [inputData]='likesCount'></app-pie-chart>
           </div>
         </div>
         <div class="card mb-3 shadow card-theme">
@@ -46,7 +46,7 @@
             <h5>Retweets count</h5>
           </div>
           <div class="card-body">
-            <app-pie-chart></app-pie-chart>
+            <app-pie-chart [inputData]='retweetCount'></app-pie-chart>
           </div>
         </div>
       </div>
@@ -58,7 +58,7 @@
         <h5>User replies</h5>
       </div>
       <div class="card-body">
-        <app-line-chart></app-line-chart>
+        <app-line-chart [inputData]='userRepliesCount'></app-line-chart>
       </div>
     </div>
   </div>

@@ -34,6 +34,7 @@ export class ThreadMessagesComponent implements OnInit {
       this.allThread = null;
       this.allThread = res;
       this.orgData = this.allThread;
+      this.getChartsData(this.allThread);
     }, error => {
       this.toastr.error(error, 'Error ocurred', { positionClass: 'toast-bottom-right' });
     }
@@ -48,5 +49,16 @@ export class ThreadMessagesComponent implements OnInit {
 
   onShowReplies(): void {
     this.showReplies = !this.showReplies;
+  }
+
+  getChartsData(data: StatusTweet): void {
+    if (data == null) {
+      return;
+    }
+
+    this.userActivityCount = data.replies.filter(r => r.tweetText.length > 5).length;
+    this.likesCount = data.replies.filter(r => r.favoriteCount >= 1).length;
+    this.retweetCount = data.replies.filter(r => r.retweetCount >= 1).length;
+    this.userRepliesCount = data.replies.filter(r => r.userName === data.userName).length;
   }
 }
