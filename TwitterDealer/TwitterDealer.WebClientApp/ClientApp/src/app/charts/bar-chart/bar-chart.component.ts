@@ -5,7 +5,7 @@ const SAMPLE_BARCHART_DATA: any[] = [
   { data: [25, 39, 60, 91, 36, 54, 50], label: 'Actual date'}
 ];
 
-const SAMPLE_BARCHART_LABELS: string[] = ['@ester', '@shef', '@rtf', '@maidan', '@jj14', 'fuser', 'ggfromh'];
+const SAMPLE_BARCHART_LABELS: string[] = ['@ester', '@shef', '@rtf', '@maidan', '@jj14', '@fuser', '@ggfromh'];
 
 @Component({
   selector: 'app-bar-chart',

@@ -14,6 +14,7 @@ export class ThreadMessagesComponent implements OnInit {
   public link: string;
   public allThread: StatusTweet;
   public showReplies: boolean;
+  public showCharts: boolean;
   public orgData: OrgData;
 
   public userActivityCount: number;
@@ -27,6 +28,7 @@ export class ThreadMessagesComponent implements OnInit {
 
   ngOnInit(): void {
     this.showReplies = false;
+    this.showCharts = false;
   }
 
   onGetAllTweets(link: string): void{
@@ -51,7 +53,11 @@ export class ThreadMessagesComponent implements OnInit {
     this.showReplies = !this.showReplies;
   }
 
-  getChartsData(data: StatusTweet): void {
+  onShowCharts(): void {
+    this.showCharts = !this.showCharts;
+  }
+
+  private getChartsData(data: StatusTweet): void {
     if (data == null) {
       return;
     }

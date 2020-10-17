@@ -11,9 +11,10 @@ export class PieChartComponent implements OnInit {
 
   constructor() { }
 
-  pieChartData: number[] = [350, 200, 420];
-  pieChartLabels: string[] = ['aaa', 'bbb', 'ccc'];
+  pieChartData: number[] = [450, 200, 322, 144, 255];
+  pieChartLabels: string[] = ['Current', 'Main', 'Average', 'Oldest', 'Newest'];
   pieChartType = 'pie';
+
 
   ngOnInit(): void {
     if (this.inputData !== null && this.inputData !== undefined){
