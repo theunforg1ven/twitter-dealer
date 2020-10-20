@@ -2,6 +2,7 @@
 Application for getting twitter posts, media and threads.
 
 ## 📌Description
+Here u can see simple web site on which u can show twitter threads in comfortable way in tree sctucture, also u can see all statistics on given charts. Also using this app u can see full user's thread, last user tweets, user media and all user profile information. All technical information and screenshots of app in use u can see below ^-^
 
 ## 📌Used
 During the development I used:
